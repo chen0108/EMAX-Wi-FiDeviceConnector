@@ -12,7 +12,7 @@ pod MQTTClient
 
 ## Usage
 
-###ConnectorManager
+### ConnectorManager
 eg. 
 
 Mostly in a UIButton action 
@@ -95,7 +95,7 @@ Mostly in a UIButton action
 
 ```
 
-###UI
+### UI
 ```
 #import "StepOneViewController.h"
 
@@ -117,7 +117,7 @@ Mostly in a UIButton action
 
 ```
 
-##ConnectorManager.h
+## ConnectorManager.h
 ```
 typedef enum : NSUInteger {
     TagMean_Init, // including bind host&port, test connection
