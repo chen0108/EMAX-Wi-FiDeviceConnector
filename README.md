@@ -96,7 +96,7 @@ Mostly in a UIButton action
 ```
 
 ### UI
-```
+```objective-c
 #import "StepOneViewController.h"
 
 - (IBAction)didClickBtn {
@@ -118,7 +118,7 @@ Mostly in a UIButton action
 ```
 
 ## ConnectorManager.h
-```
+```objective-c
 typedef enum : NSUInteger {
     TagMean_Init, // including bind host&port, test connection
     TagMean_ShouldScan, // tell device scan Wi-Fi
@@ -171,7 +171,7 @@ typedef enum : NSUInteger {
 ```
 
 ## ConnectorCustomizer.h
-```
+```objective-c
 @interface ConnectorCustomizer : NSObject
 
 /**
