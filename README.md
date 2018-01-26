@@ -170,7 +170,7 @@ typedef enum : NSUInteger {
 
 ```
 
-### ConnectorCustomizer.h
+## ConnectorCustomizer.h
 ```
 @interface ConnectorCustomizer : NSObject
 
