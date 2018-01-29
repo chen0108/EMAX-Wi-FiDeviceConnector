@@ -19,13 +19,14 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/libercata/EMAX-Wi-FiDeviceConnector"
   s.license      = "MIT"
 
-  s.author             = { "Waynnn" => "imhwn@vip.qq.com" }
+  s.author       = { "Waynnn" => "imhwn@vip.qq.com" }
 
   s.platform     = :ios, "8.0"
 
   s.source       = { :git => "https://github.com/libercata/EMAX-Wi-FiDeviceConnector.git", :tag => "#{s.version}" }
 
   s.source_files = 'EMAXConnector/**/*.{h,m}'
+  s.source_files = 'EMAXConnector/**/*.h'
   s.resource     = 'EMAXConnector/Connector.bundle'
 
 
