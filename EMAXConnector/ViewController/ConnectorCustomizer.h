@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+#define kDevice_Is_iPhoneX      ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kStatusH                (kDevice_Is_iPhoneX? 44 : 20)
+#define kNavbarH                44
+#define kSBottom                (kDevice_Is_iPhoneX ? 34 : 0)
+
+#define kNavStatusBarHeigth     (kStatusH+kNavbarH)
+
+#define kScreenWidth            [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight           [UIScreen mainScreen].bounds.size.height
+#define kScreenScale            kScreenWidth / 375 // refer - iPhone6
+
+#define kConnectorBundle        [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"Connector" ofType:@"bundle"]]
+#define kLocalizedString(Str)   NSLocalizedStringFromTableInBundle(Str, nil, kConnectorBundle, nil)
+
+#define kPadding 20
+
 @interface ConnectorCustomizer : NSObject
 
 /**
