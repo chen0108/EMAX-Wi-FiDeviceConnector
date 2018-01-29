@@ -6,7 +6,7 @@ As a CocoaPod, add this to your Podfile:
 
 
 ```
-pod MQTTClient
+pod 'EMAX-Wi-FiDeviceConnector'
 
 ```
 
