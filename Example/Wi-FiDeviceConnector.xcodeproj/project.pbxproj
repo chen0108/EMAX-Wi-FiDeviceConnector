@@ -137,10 +137,10 @@
 				2042834D201ED1E90013DED0 /* ConnectorCustomizer.m */,
 				2042834E201ED1E90013DED0 /* StepOneViewController.h */,
 				2042834F201ED1E90013DED0 /* StepOneViewController.m */,
-				20428350201ED1E90013DED0 /* StepThreeViewController.h */,
-				20428351201ED1E90013DED0 /* StepThreeViewController.m */,
 				20428352201ED1E90013DED0 /* StepTwoViewController.h */,
 				20428353201ED1E90013DED0 /* StepTwoViewController.m */,
+				20428350201ED1E90013DED0 /* StepThreeViewController.h */,
+				20428351201ED1E90013DED0 /* StepThreeViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
