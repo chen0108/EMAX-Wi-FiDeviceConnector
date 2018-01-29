@@ -1,4 +1,4 @@
-#EMAX Wi-FiDeviceConnector
+# EMAX Wi-FiDeviceConnector
 Framework container **ConnectorManager class** and **customizable UI**
 
 ## Installation
