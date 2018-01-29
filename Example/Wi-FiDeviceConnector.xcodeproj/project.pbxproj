@@ -49,7 +49,6 @@
 		20428351201ED1E90013DED0 /* StepThreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepThreeViewController.m; sourceTree = "<group>"; };
 		20428352201ED1E90013DED0 /* StepTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepTwoViewController.h; sourceTree = "<group>"; };
 		20428353201ED1E90013DED0 /* StepTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepTwoViewController.m; sourceTree = "<group>"; };
-		20428354201ED1E90013DED0 /* StepVCHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepVCHeader.h; sourceTree = "<group>"; };
 		2067B015201AFBCE006661A2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2067B016201AFBCE006661A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,7 +141,6 @@
 				20428351201ED1E90013DED0 /* StepThreeViewController.m */,
 				20428352201ED1E90013DED0 /* StepTwoViewController.h */,
 				20428353201ED1E90013DED0 /* StepTwoViewController.m */,
-				20428354201ED1E90013DED0 /* StepVCHeader.h */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
