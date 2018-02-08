@@ -60,7 +60,7 @@
 
 /**
  All done block */
-@property (nonatomic, copy) void(^successBlock)(UIViewController *vc);
+@property (nonatomic, copy) void(^successBlock)(UIViewController *vc, NSString *deviceMAC);
 
 @end
 

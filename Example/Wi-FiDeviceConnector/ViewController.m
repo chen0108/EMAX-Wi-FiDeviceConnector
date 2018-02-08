@@ -20,7 +20,7 @@
     customizer.tintColor = [UIColor orangeColor];
     customizer.deviceSettingGuide = [UIImage imageNamed:@"deviceSettingGuide_cn"];
     customizer.wifiSettingGuide = [UIImage imageNamed:@"wifiSettingGuide"];
-    customizer.successBlock = ^(UIViewController *vc) {
+    customizer.successBlock = ^(UIViewController *vc, NSString *deviceMAC) {
 
     };
     

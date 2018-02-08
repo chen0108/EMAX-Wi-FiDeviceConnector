@@ -101,7 +101,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
                 [self dismissLoadingView];
                 [self showConfirmAlertViewWithMsg:msg shouldJump:YES confirmBlock:^{
                     if (self.customizer.successBlock) {
-                        self.customizer.successBlock(self);
+                        self.customizer.successBlock(self, self.mgr.deviceMAC);
                     }
                 }];
             } else {

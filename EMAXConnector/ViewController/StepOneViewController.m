@@ -250,6 +250,9 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
             }
             if(isSSIDExist == false){
                 [self.ssids addObject:title];
+                if (self.ssids.count > 7) {
+                    [self.ssids removeObjectAtIndex:0];
+                }
                 [[NSUserDefaults standardUserDefaults] setObject:self.ssids forKey:kSSIDsKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
