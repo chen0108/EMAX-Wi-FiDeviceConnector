@@ -40,7 +40,7 @@ Mostly in a UIButton action
                 [self dismissLoadingView];
                 [self showConfirmAlertViewWithMsg:msg shouldJump:YES confirmBlock:^{
                     if (self.customizer.successBlock) {
-                        self.customizer.successBlock(self);
+                        self.customizer.successBlock(self, self.mgr.deviceMAC);
                     }
                 }];
             } else {
@@ -104,7 +104,7 @@ Mostly in a UIButton action
     customizer.tintColor = [UIColor orangeColor];
     customizer.deviceSettingGuide = [UIImage imageNamed:@"deviceSettingGuide_cn"];
     customizer.wifiSettingGuide = [UIImage imageNamed:@"wifiSettingGuide"];
-    customizer.successBlock = ^(UIViewController *vc) {
+    customizer.successBlock = ^(UIViewController *vc, NSString *deviceMAC) {
         [vc.navigationController pushViewController:[SuccessViewController new] animated:YES];
     };
     
@@ -208,7 +208,7 @@ typedef enum : NSUInteger {
 
 /**
  All done block */
-@property (nonatomic, copy) void(^successBlock)(UIViewController *vc);
+@property (nonatomic, copy) void(^successBlock)(UIViewController *vc, NSString *deviceMAC);
 
 @end
 
