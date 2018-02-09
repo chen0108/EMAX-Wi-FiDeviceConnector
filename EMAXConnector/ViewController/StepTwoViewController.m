@@ -43,6 +43,12 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    self.customizer.StepViewDidAppear(self, 2);
+}
+
 - (void)nextStepAction {
     StepThreeViewController *vc = [StepThreeViewController new];
     vc.customizer = self.customizer;

@@ -62,5 +62,9 @@
  All done block */
 @property (nonatomic, copy) void(^successBlock)(UIViewController *vc, NSString *deviceMAC);
 
+/**
+ StepViewController -(void)viewDidAppear: block */
+@property (nonatomic, copy) void(^StepViewDidAppear)(UIViewController *vc, NSUInteger stepCount);
+
 @end
 

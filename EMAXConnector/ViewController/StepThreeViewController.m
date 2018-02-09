@@ -85,6 +85,12 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     selfClass = self;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    self.customizer.StepViewDidAppear(self, 1);
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
