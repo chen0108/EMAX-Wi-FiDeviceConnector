@@ -46,7 +46,9 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    self.customizer.StepViewDidAppear(self, 2);
+    if (self.customizer.StepViewDidAppear) {
+        self.customizer.StepViewDidAppear(self, 2);
+    }
 }
 
 - (void)nextStepAction {

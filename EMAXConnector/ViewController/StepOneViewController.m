@@ -162,7 +162,9 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    self.customizer.StepViewDidAppear(self, 1);
+    if (self.customizer.StepViewDidAppear) {
+        self.customizer.StepViewDidAppear(self, 1);
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
