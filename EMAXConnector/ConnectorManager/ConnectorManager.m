@@ -148,8 +148,8 @@
                         }
                         NSString *encry = [temArr.lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
                         [self sendInstruction:[NSString stringWithFormat:@"LSD_WIFI:AT+WSKEY=%@,%@,%@\r\n",auth,encry,self.pin]];
-                    } else if([auth isEqualToString:@"OPEN"]) {
-                        [self sendInstruction:[NSString stringWithFormat:@"LSD_WIFI:AT+WSKEY=%@,NONE\r\n", auth]];
+                    } else if([auth hasPrefix:@"OPEN"]) {
+                        [self sendInstruction:[NSString stringWithFormat:@"LSD_WIFI:AT+WSKEY=OPEN,NONE\r\n"]];
                     }
                 }
             }
