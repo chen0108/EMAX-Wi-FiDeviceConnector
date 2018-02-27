@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = kLocalizedString(@"Connect to your device");
+    self.title = EMAXConnectorLocalizedString(@"Connect to your device");
 
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
     [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
@@ -49,10 +49,10 @@
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
     nextStepBtn.enabled = [[ConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
-    [nextStepBtn setTitle:kLocalizedString(@"Next") forState:UIControlStateNormal];
+    [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
-    [nextStepBtn setTitle:[NSString stringWithFormat:kLocalizedString(@"Please connect %@"), self.customizer.deviceSSID] forState:UIControlStateDisabled];
+    [nextStepBtn setTitle:[NSString stringWithFormat:EMAXConnectorLocalizedString(@"Please connect %@"), self.customizer.deviceSSID] forState:UIControlStateDisabled];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
     [nextStepBtn addTarget:self action:@selector(nextStepAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:nextStepBtn];
@@ -61,7 +61,7 @@
     guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kScreenWidth, kScreenHeight * 0.5);
     
     /* * */
-    [self showConfirmAlertViewWithMsg:[NSString stringWithFormat:kLocalizedString(@"Go to Wi-Fi settings, choose %@ and then back to app to complete the setting."), self.customizer.deviceSSID] shouldJump:!self.nextStepBtn.isEnabled confirmBlock:nil];
+    [self showConfirmAlertViewWithMsg:[NSString stringWithFormat:EMAXConnectorLocalizedString(@"Go to Wi-Fi settings, choose %@ and then back to app to complete the setting."), self.customizer.deviceSSID] shouldJump:!self.nextStepBtn.isEnabled confirmBlock:nil];
     
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL,onNetworkChange, CFSTR("com.apple.system.config.network_change"), NULL,CFNotificationSuspensionBehaviorDeliverImmediately);
 }
@@ -113,7 +113,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
                     }
                 }];
             } else {
-                self.statusLb.text = kLocalizedString(@"Initializing connection");
+                self.statusLb.text = EMAXConnectorLocalizedString(@"Initializing connection");
             }
         } else { // failure
             [self dismissLoadingView];
@@ -133,30 +133,30 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     NSString *msg = nil;
     switch (tag) {
         case TagMean_Init: {
-            msg = kLocalizedString(@"Initializing connection");
+            msg = EMAXConnectorLocalizedString(@"Initializing connection");
             break;
         }
         case TagMean_ShouldScan: {
-            msg = kLocalizedString(@"Scaning Wi-Fi");
+            msg = EMAXConnectorLocalizedString(@"Scaning Wi-Fi");
             break;
         }
         case TagMean_ShouldSetPIN: {
-            msg = kLocalizedString(@"Setting Wi-Fi PIN");
+            msg = EMAXConnectorLocalizedString(@"Setting Wi-Fi PIN");
             break;
         }
         case TagMean_ShouldSetSSID: {
-            msg = kLocalizedString(@"Setting Wi-Fi SSID");
+            msg = EMAXConnectorLocalizedString(@"Setting Wi-Fi SSID");
             break;
         }
         case TagMean_Succeed: {
-            msg = kLocalizedString(@"Connection sucessful, please press and hold WiFi button for 3 seconds again to complete the setting.");
+            msg = EMAXConnectorLocalizedString(@"Connection sucessful, please press and hold WiFi button for 3 seconds again to complete the setting.");
             break;
         }
         default:
             break;
     }
     if (isSuccess == NO) {
-        msg = [msg stringByAppendingString:kLocalizedString(@"error!")];
+        msg = [msg stringByAppendingString:EMAXConnectorLocalizedString(@"error!")];
     }
     return msg;
 }
@@ -213,7 +213,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
 
 - (void)showConfirmAlertViewWithMsg:(NSString *)msg shouldJump:(BOOL)shouldJump confirmBlock:(void (^)(void))block {
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
-    [ac addAction:[UIAlertAction actionWithTitle:kLocalizedString(@"Confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [ac addAction:[UIAlertAction actionWithTitle:EMAXConnectorLocalizedString(@"Confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if (block) {
             block();
         }

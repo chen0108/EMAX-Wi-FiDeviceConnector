@@ -40,7 +40,7 @@
     if (_ssids == nil) {
         NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:kSSIDsKey];
         if (arr == nil || arr.count == 0) {
-            _ssids = [NSMutableArray arrayWithObject:kLocalizedString(@"Jump to Settings")];
+            _ssids = [NSMutableArray arrayWithObject:EMAXConnectorLocalizedString(@"Jump to Settings")];
         } else {
             _ssids = [NSMutableArray arrayWithArray:arr];
         }
@@ -52,7 +52,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = kLocalizedString(@"Choose your router");
+    self.title = EMAXConnectorLocalizedString(@"Choose your router");
     
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_1"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
     [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
@@ -96,7 +96,7 @@
     UIButton *radioBtn =        [[UIButton alloc] initWithFrame:CGRectMake(kPadding + 6, CGRectGetMaxY(wlanPswTF.frame) + 20, 130, 40)];
     radioBtn.imageEdgeInsets =  UIEdgeInsetsMake(0, -10, 0, 0);
     radioBtn.titleLabel.font =  [UIFont systemFontOfSize:13];
-    [radioBtn setTitle:kLocalizedString(@"display password") forState:UIControlStateNormal];
+    [radioBtn setTitle:EMAXConnectorLocalizedString(@"display password") forState:UIControlStateNormal];
     [radioBtn setTitleColor:self.customizer.textColor forState:UIControlStateNormal];
     [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio0_btn"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha] forState:UIControlStateNormal];
     [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio1_btn"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha] forState:UIControlStateSelected];
@@ -111,7 +111,7 @@
     UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
-    [nextStepBtn setTitle:kLocalizedString(@"Next") forState:UIControlStateNormal];
+    [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
@@ -122,7 +122,7 @@
     UILabel *notiLb =        [[UILabel alloc] init];
     notiLb.backgroundColor = [UIColor clearColor];
     notiLb.font =            [UIFont systemFontOfSize:14];
-    notiLb.text =            kLocalizedString(@"This device do NOT support 5G Wi-Fi frequencies");
+    notiLb.text =            EMAXConnectorLocalizedString(@"This device do NOT support 5G Wi-Fi frequencies");
     notiLb.textColor =       self.customizer.textColor;
     notiLb.numberOfLines =   0;
     notiLb.lineBreakMode =   NSLineBreakByCharWrapping;
@@ -179,7 +179,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
     return YES;
 }
 - (void)showSSIDsAction {
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"" message:kLocalizedString(@"Please select WiFi") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"" message:EMAXConnectorLocalizedString(@"Please select WiFi") preferredStyle:UIAlertControllerStyleActionSheet];
 
     [ac addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@  ❯", self.ssids.firstObject] style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
@@ -199,7 +199,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
         }]];
     }
     
-    [ac addAction:[UIAlertAction actionWithTitle:kLocalizedString(@"Cancel") style:UIAlertActionStyleCancel handler:nil]];
+    [ac addAction:[UIAlertAction actionWithTitle:EMAXConnectorLocalizedString(@"Cancel") style:UIAlertActionStyleCancel handler:nil]];
     
     [self presentViewController:ac animated:YES completion:nil];
 }
@@ -223,8 +223,8 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
         vc.view.backgroundColor = self.view.backgroundColor;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:kLocalizedString(@"Wi-Fi PIN length error!") preferredStyle:UIAlertControllerStyleAlert];
-        [ac addAction:[UIAlertAction actionWithTitle:kLocalizedString(@"Confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:EMAXConnectorLocalizedString(@"Wi-Fi PIN length error!") preferredStyle:UIAlertControllerStyleAlert];
+        [ac addAction:[UIAlertAction actionWithTitle:EMAXConnectorLocalizedString(@"Confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.wlanPswTF becomeFirstResponder];
         }]];
 
@@ -242,7 +242,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
     if (title) {
         [self.ssidValueBtn setTitle:title forState:UIControlStateNormal];
         
-        if ([title isEqualToString:kLocalizedString(@"Jump to Settings")]) {
+        if ([title isEqualToString:EMAXConnectorLocalizedString(@"Jump to Settings")]) {
             [self.nextStepBtn setEnabled:NO];
         } else {
             [self.nextStepBtn setEnabled:YES];

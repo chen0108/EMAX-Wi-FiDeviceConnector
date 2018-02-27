@@ -20,7 +20,7 @@
 #define kScreenScale            kScreenWidth / 375 // refer - iPhone6
 
 #define kConnectorBundle        [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"Connector" ofType:@"bundle"]]
-#define kLocalizedString(Str)   NSLocalizedStringFromTableInBundle(Str, nil, kConnectorBundle, nil)
+#define EMAXConnectorLocalizedString(Str)   NSLocalizedStringFromTableInBundle(Str, nil, kConnectorBundle, nil)
 
 #define kPadding 20
 
