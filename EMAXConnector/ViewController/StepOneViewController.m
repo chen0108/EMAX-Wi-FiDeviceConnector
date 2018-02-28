@@ -207,11 +207,6 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
 - (void)didClickRadioBtn:(UIButton *)btn {
     btn.selected = !btn.isSelected;
     self.wlanPswTF.secureTextEntry = !btn.isSelected;
-    
-    NSString *str = [[NSBundle bundleForClass:[self class]] localizedStringForKey:@"Cancel" value:nil table:nil];
-    
-    NSLog(@"*=*=%s=*=* :%@", __func__, str);
-
 }
 
 - (void)nextStepAction {
