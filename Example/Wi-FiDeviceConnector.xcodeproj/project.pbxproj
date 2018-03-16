@@ -113,7 +113,8 @@
 				20428344201ED1E90013DED0 /* ConnectorManager */,
 				20428349201ED1E90013DED0 /* UIImage+tint.h */,
 				2042834A201ED1E90013DED0 /* UIImage+tint.m */,
-				2042834B201ED1E90013DED0 /* ViewController */,
+				2042834B201ED1E90013DED0 /* SelelctionBefore */,
+				206C1F1C205A6B790046809C /* SelelctionInBetween */,
 			);
 			name = EMAXConnector;
 			path = ../../EMAXConnector;
@@ -130,7 +131,7 @@
 			path = ConnectorManager;
 			sourceTree = "<group>";
 		};
-		2042834B201ED1E90013DED0 /* ViewController */ = {
+		2042834B201ED1E90013DED0 /* SelelctionBefore */ = {
 			isa = PBXGroup;
 			children = (
 				2042834C201ED1E90013DED0 /* ConnectorCustomizer.h */,
@@ -142,7 +143,14 @@
 				20428350201ED1E90013DED0 /* StepThreeViewController.h */,
 				20428351201ED1E90013DED0 /* StepThreeViewController.m */,
 			);
-			path = ViewController;
+			path = SelelctionBefore;
+			sourceTree = "<group>";
+		};
+		206C1F1C205A6B790046809C /* SelelctionInBetween */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SelelctionInBetween;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

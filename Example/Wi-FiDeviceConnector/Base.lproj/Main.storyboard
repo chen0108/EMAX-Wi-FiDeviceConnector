@@ -35,17 +35,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNP-p2-XfB">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="146.5" y="268.5" width="81" height="30"/>
+                                <state key="normal" title="Old Fashion"/>
                                 <connections>
                                     <action selector="didClickBtn" destination="Hrf-Lz-xWo" eventType="touchUpInside" id="JXY-xU-Y1L"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAi-wX-bXP">
+                                <rect key="frame" x="152.5" y="368.5" width="69" height="30"/>
+                                <state key="normal" title="New Style"/>
+                                <connections>
+                                    <action selector="newStyleAction" destination="Hrf-Lz-xWo" eventType="touchUpInside" id="uct-ds-Nre"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bNP-p2-XfB" firstAttribute="centerY" secondItem="ijm-GD-ftk" secondAttribute="centerY" id="UWL-MY-X2x"/>
+                            <constraint firstItem="bNP-p2-XfB" firstAttribute="centerY" secondItem="ijm-GD-ftk" secondAttribute="centerY" constant="-50" id="UWL-MY-X2x"/>
                             <constraint firstItem="bNP-p2-XfB" firstAttribute="centerX" secondItem="ijm-GD-ftk" secondAttribute="centerX" id="Vbb-gC-TIF"/>
+                            <constraint firstItem="YAi-wX-bXP" firstAttribute="centerY" secondItem="ijm-GD-ftk" secondAttribute="centerY" constant="50" id="jdb-MZ-DKl"/>
+                            <constraint firstItem="YAi-wX-bXP" firstAttribute="centerX" secondItem="ijm-GD-ftk" secondAttribute="centerX" id="to6-ez-2lh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4TN-FL-OwL"/>
                     </view>
