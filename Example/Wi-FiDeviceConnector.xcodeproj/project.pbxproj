@@ -13,6 +13,7 @@
 		200203E52015B46000AEE3E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 200203E32015B46000AEE3E7 /* LaunchScreen.storyboard */; };
 		200203E82015B46000AEE3E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 200203E72015B46000AEE3E7 /* main.m */; };
 		2029BADD201F0E680070D81E /* Connector.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2029BADC201F0E680070D81E /* Connector.bundle */; };
+		202DC0A7205F5DE4008E2304 /* TestHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */; };
 		20428356201ED1E90013DED0 /* ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20428346201ED1E90013DED0 /* ConnectorManager.m */; };
 		20428357201ED1E90013DED0 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 20428348201ED1E90013DED0 /* GCDAsyncUdpSocket.m */; };
 		20428358201ED1E90013DED0 /* UIImage+tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2042834A201ED1E90013DED0 /* UIImage+tint.m */; };
@@ -21,6 +22,7 @@
 		2042835B201ED1E90013DED0 /* StepThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20428351201ED1E90013DED0 /* StepThreeViewController.m */; };
 		2042835C201ED1E90013DED0 /* StepTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20428353201ED1E90013DED0 /* StepTwoViewController.m */; };
 		2067B017201AFBCE006661A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2067B016201AFBCE006661A2 /* ViewController.m */; };
+		206C1F1F205BB2C70046809C /* ConnectorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 206C1F1E205BB2C70046809C /* ConnectorHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		200204052015C87200AEE3E7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		200204142019C5C700AEE3E7 /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
 		2029BADC201F0E680070D81E /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
+		202DC0A5205F5DE4008E2304 /* TestHelperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHelperViewController.h; sourceTree = "<group>"; };
+		202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHelperViewController.m; sourceTree = "<group>"; };
 		20428345201ED1E90013DED0 /* ConnectorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectorManager.h; sourceTree = "<group>"; };
 		20428346201ED1E90013DED0 /* ConnectorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectorManager.m; sourceTree = "<group>"; };
 		20428347201ED1E90013DED0 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
@@ -51,6 +55,8 @@
 		20428353201ED1E90013DED0 /* StepTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepTwoViewController.m; sourceTree = "<group>"; };
 		2067B015201AFBCE006661A2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2067B016201AFBCE006661A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		206C1F1D205BB2C70046809C /* ConnectorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectorHelper.h; sourceTree = "<group>"; };
+		206C1F1E205BB2C70046809C /* ConnectorHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectorHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,8 @@
 		20428344201ED1E90013DED0 /* ConnectorManager */ = {
 			isa = PBXGroup;
 			children = (
+				206C1F1D205BB2C70046809C /* ConnectorHelper.h */,
+				206C1F1E205BB2C70046809C /* ConnectorHelper.m */,
 				20428345201ED1E90013DED0 /* ConnectorManager.h */,
 				20428346201ED1E90013DED0 /* ConnectorManager.m */,
 				20428347201ED1E90013DED0 /* GCDAsyncUdpSocket.h */,
@@ -149,6 +157,8 @@
 		206C1F1C205A6B790046809C /* SelelctionInBetween */ = {
 			isa = PBXGroup;
 			children = (
+				202DC0A5205F5DE4008E2304 /* TestHelperViewController.h */,
+				202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */,
 			);
 			path = SelelctionInBetween;
 			sourceTree = "<group>";
@@ -226,6 +236,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				202DC0A7205F5DE4008E2304 /* TestHelperViewController.m in Sources */,
+				206C1F1F205BB2C70046809C /* ConnectorHelper.m in Sources */,
 				20428359201ED1E90013DED0 /* ConnectorCustomizer.m in Sources */,
 				2067B017201AFBCE006661A2 /* ViewController.m in Sources */,
 				20428357201ED1E90013DED0 /* GCDAsyncUdpSocket.m in Sources */,

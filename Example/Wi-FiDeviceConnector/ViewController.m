@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "StepOneViewController.h"
+#import "TestHelperViewController.h"
 
 @interface ViewController ()
 
@@ -35,7 +36,19 @@
 }
 
 - (IBAction)newStyleAction {
-    
+    ConnectorCustomizer *customizer = [ConnectorCustomizer new];
+    customizer.tintColor = [UIColor orangeColor];
+    customizer.deviceSettingGuide = [UIImage imageNamed:@"deviceSettingGuide_cn"];
+    customizer.wifiSettingGuide = [UIImage imageNamed:@"wifiSettingGuide"];
+    customizer.deviceSSID = @"LivingSmart";
+    customizer.host = @"11.11.11.254";
+    customizer.port = 8800;
+
+    TestHelperViewController *vc = [TestHelperViewController new];
+    vc.customizer = customizer;
+    // Same background color in the next three ViewController
+    vc.view.backgroundColor = [UIColor whiteColor];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewDidLoad {

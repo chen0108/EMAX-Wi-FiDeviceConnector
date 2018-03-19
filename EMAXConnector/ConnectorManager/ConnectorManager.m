@@ -12,7 +12,6 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
-
 @interface ConnectorManager() <GCDAsyncUdpSocketDelegate>
 
 @property (strong, nonatomic) GCDAsyncUdpSocket *udpSocket;

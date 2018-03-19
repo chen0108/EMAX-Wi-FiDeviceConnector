@@ -129,6 +129,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
         
     }];
 }
+
 - (NSString *)messageWithTag:(TagMean)tag isSuccess:(BOOL)isSuccess {
     NSString *msg = nil;
     switch (tag) {
