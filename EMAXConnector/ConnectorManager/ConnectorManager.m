@@ -12,6 +12,30 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
+
+static NSString * const W001Commonds[] = {
+    @"LSD_WIFI",                            // 连接测试
+    @"LSD_WIFI:AT+WSCAN\r\n",               // 扫描热点
+    @"LSD_WIFI:AT+WSKEY=%@,%@,%@\r\n",      // 设置Wi-Fi密码 加密方式
+    @"LSD_WIFI:AT+WSKEY=OPEN,NONE\r\n",     // 设置开放的Wi-Fi
+    @"LSD_WIFI:AT+WSSSID=%@\r\n",           // 设置SSID
+    @"LSD_WIFI:AT+WSMAC\r\n",               // 获取设备MAC
+};
+
+typedef enum : NSUInteger {
+    CommondIdx_Test = 0,
+    CommondIdx_Scan,
+    CommondIdx_Psw,
+    CommondIdx_PswOpen,
+    CommondIdx_SSID,
+    CommondIdx_Mac,
+    CommondIdx_Mode,
+    CommondIdx_Net,
+    CommondIdx_WSLK,
+    CommondIdx_ENTM,
+    CommondIdx_Reboot,
+} CommondIdx;
+
 @interface ConnectorManager() <GCDAsyncUdpSocketDelegate>
 
 @property (strong, nonatomic) GCDAsyncUdpSocket *udpSocket;
@@ -72,6 +96,8 @@
 }
 
 - (void)sendInstruction:(NSString *)instruction {
+    NSLog(@"*=*= instruction =*=* :%@", instruction);
+
     self.block(YES, _tag);
     NSData *data = [instruction dataUsingEncoding:NSUTF8StringEncoding];
     [self.udpSocket sendData:data withTimeout:30 tag:_tag];
@@ -83,7 +109,7 @@
     
     NSError *error = nil;
     if ([sock receiveOnce:&error]) {
-        [self sendInstruction:@"LSD_WIFI"]; // 前导指令
+        [self sendInstruction:W001Commonds[CommondIdx_Test]]; // 前导指令
         
         __weak typeof(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -129,7 +155,7 @@
             if ([msg hasSuffix:@"LSD_F205"]) {
                 NSArray *arr = [msg componentsSeparatedByString:@","];
                 self.deviceMAC = [arr.firstObject uppercaseString];
-                [self sendInstruction:@"LSD_WIFI:AT+WSCAN\r\n"];
+                [self sendInstruction:W001Commonds[CommondIdx_Scan]];
             }
             break;
         }
@@ -146,9 +172,9 @@
                             auth = [auth stringByAppendingString:@"PSK"];
                         }
                         NSString *encry = [temArr.lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                        [self sendInstruction:[NSString stringWithFormat:@"LSD_WIFI:AT+WSKEY=%@,%@,%@\r\n",auth,encry,self.pin]];
+                        [self sendInstruction:[NSString stringWithFormat:W001Commonds[CommondIdx_Psw], auth, encry, self.pin]];
                     } else if([auth hasPrefix:@"OPEN"]) {
-                        [self sendInstruction:[NSString stringWithFormat:@"LSD_WIFI:AT+WSKEY=OPEN,NONE\r\n"]];
+                        [self sendInstruction:W001Commonds[CommondIdx_PswOpen]];
                     }
                 }
             }
@@ -156,7 +182,7 @@
         }
         case TagMean_ShouldSetSSID: {
             if ([msg containsString:@"+ok"]) {
-                [self sendInstruction:[NSString stringWithFormat:@"LSD_WIFI:AT+WSSSID=%@\r\n",self.ssid]];
+                [self sendInstruction:[NSString stringWithFormat:W001Commonds[CommondIdx_SSID],self.ssid]];
             } else if ([msg containsString:@"+ERR=-4"]) {
                 self.block(NO, _tag);
             }

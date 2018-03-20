@@ -34,7 +34,7 @@
 
 static NSString * const W001Commonds[] = {
     @"LSD_WIFI",                            // 连接测试
-    @"LSD_WIFI:AT+WSCAN\r\n"                // 扫描热点
+    @"LSD_WIFI:AT+WSCAN\r\n",                // 扫描热点
     @"LSD_WIFI:AT+WSKEY=%@,%@,%@\r\n",      // 设置Wi-Fi密码 加密方式
     @"LSD_WIFI:AT+WSKEY=OPEN,NONE\r\n",     // 设置开放的Wi-Fi
     @"LSD_WIFI:AT+WSSSID=%@\r\n",           // 设置SSID
@@ -42,17 +42,17 @@ static NSString * const W001Commonds[] = {
 };
 
 static NSString * const W002Commonds[] = {
-    @"HF-A11ASSISTHREAD",                   // 连接测试
-    @"AT+WSCAN",                            // 扫描热点
-    @"AT+WSKEY=%@,%@,%@",                   // 设置Wi-Fi密码 加密方式
-    @"AT+WSKEY=OPEN,NONE",                  // 设置开放的Wi-Fi
-    @"AT+WSSSID=%@",                        // 设置SSID
-    @"AT+WSMAC",                            // 获取设备MAC
-    @"AT+WMODE=APSTA"                       // 设备工作模式
-    @"AT+NETP=UDP,CLIENT,%@,%@",            // 设置设备服务端端口、地址
-    @"AT+WSLK",                             // 查寻STA连接状态
-    @"AT+ENTM",                             // 模块进入透传模式
-    @"AT+Z",                                // 重启模块
+    @"HF-A11ASSISTHREAD",                   // 1 连接测试
+    @"AT+WSCAN",                            // 4 扫描热点
+    @"AT+WSKEY=%@,%@,%@",                   // 5 设置Wi-Fi密码 加密方式
+    @"AT+WSKEY=OPEN,NONE",                  // 6 设置开放的Wi-Fi
+    @"AT+WSSSID=%@",                        // 6 设置SSID
+    @"AT+WSMAC",                            // * 获取设备MAC
+    @"AT+WMODE=APSTA",                      // 2 设置设备工作模式
+    @"AT+NETP=UDP,CLIENT,%@,%@",            // 3 设置设备服务端端口、地址
+    @"AT+WSLK",                             // 7 查寻STA连接状态
+    @"AT+ENTM",                             // 8 模块进入透传模式
+    @"AT+Z",                                // 9 重启模块
 };
 
 typedef enum : NSUInteger {
@@ -62,7 +62,7 @@ typedef enum : NSUInteger {
     CommondIdx_PswOpen,
     CommondIdx_SSID,
     CommondIdx_Mac,
-    CommondIdx_Mode,
+    CommondIdx_APMode,
     CommondIdx_Net,
     CommondIdx_WSLK,
     CommondIdx_ENTM,
@@ -77,6 +77,7 @@ typedef void(^TasksBlock)(NSString *msg);
 
 @property (nonatomic, strong) NSArray *moduleCmds;
 
+@property (nonatomic, strong) NSTimer *timeoutTimer;
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *commands;
 @property (nonatomic, strong) NSMutableArray<TasksBlock> *tasks;
@@ -85,6 +86,7 @@ typedef void(^TasksBlock)(NSString *msg);
 
 @implementation ConnectorHelper {
     NSInteger _taskPointer;
+    BOOL _receiveWiFiInfo;
 }
 
 - (NSArray *)moduleCmds {
@@ -136,24 +138,27 @@ typedef void(^TasksBlock)(NSString *msg);
 }
 
 #pragma mark -
-- (ConnectorHelper *(^)(void))connectToDevice {
+- (ConnectorHelper *(^)(void))connectToDeviceAndBegin {
     ConnectorHelper *(^block)(void) = ^(void) {
-        _taskPointer = -1;
+        _taskPointer = 0;
+        [self.commands removeAllObjects];
+        [self.tasks removeAllObjects];
         
-        NSError *error = nil;
-        if ([_udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
-            NSLog(@"Error connecting: %@", error);
-            self.resultBlock(false, _taskPointer);
+        [self.commands addObject:@"connectToDevice"]; // 无实际用途 表示成任务
+        TasksBlock block = ^(NSString *msg){
+            NSLog(@"*=*=Connected block=*=* :%@", msg);
         };
+        [self.tasks addObject:block];
         
-        __weak typeof(self) weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 总超时判断
-            if (_taskPointer != weakSelf.commands.count - 1) {
-                self.resultBlock(false, _taskPointer);
-                [weakSelf.udpSocket close];
-            }
-        });
-        
+        if (_udpSocket.isConnected) {
+            [self udpSocket:_udpSocket didConnectToAddress:_udpSocket.connectedAddress];
+        } else {
+            NSError *error = nil;
+            if ([_udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
+                NSLog(@"Error connecting: %@", error);
+                self.resultBlock(self, false, _taskPointer);
+            };
+        }
         return self;
     };
     
@@ -161,25 +166,55 @@ typedef void(^TasksBlock)(NSString *msg);
 }
 
 - (ConnectorHelper *(^)(void))connectionTest {
-    [self.commands addObject:self.moduleCmds[CommondIdx_Test]];
     return ^ConnectorHelper *(void) {
-        TasksBlock block = ^(NSString *msg){
+        [self.commands addObject:self.moduleCmds[CommondIdx_Test]];
+        
+        TasksBlock block = [self connectionTestTasksBlockWithModule:self.module];
+        [self.tasks addObject:block];
+        
+        return self;
+    };
+}
+- (TasksBlock)connectionTestTasksBlockWithModule:(WiFiModule)module {
+    TasksBlock block;
+    if (module == WiFiModule_W001) {
+        block = ^(NSString *msg){
             if ([msg hasSuffix:@"LSD_F205"]) {
                 NSArray *arr = [msg componentsSeparatedByString:@","];
-                self.connectionTestResult([arr.firstObject uppercaseString]);
+                self.connectionTestResult(self, [arr.firstObject uppercaseString]);
                 [self nextCommond];
             }
         };
-        
-        [self.tasks addObject:block];
+    } else if (module == WiFiModule_W002) {
+        block = ^(NSString *msg){
+            NSLog(@"*=*=%s=*=* :%@", __func__, msg);
+        };
+
+    }
+    return block;
+}
+
+- (ConnectorHelper *(^)(void))setAPWorkMode {
+    return ^ConnectorHelper *(void) {
+        if (self.module == WiFiModule_W002) {
+            [self.commands addObject:self.moduleCmds[CommondIdx_APMode]];
+            
+            TasksBlock block = ^(NSString *msg){
+                NSLog(@"*=*=%s=*=* :%@", __func__, msg);
+            };
+            [self.tasks addObject:block];
+        } else {
+            NSLog(@"*=*=%s=*=* : Error module", __func__);
+        }
         
         return self;
     };
 }
 
 - (ConnectorHelper *(^)(void))scanWiFi {
-    [self.commands addObject:self.moduleCmds[CommondIdx_Scan]];
     ConnectorHelper *(^block)(void) = ^(void) {
+        [self.commands addObject:self.moduleCmds[CommondIdx_Scan]];
+        _receiveWiFiInfo = YES;
         TasksBlock block = ^(NSString *msg){
             if ([msg containsString:@"Infra     "]) {
                 NSArray *infos = [msg componentsSeparatedByString:@"  \""];
@@ -193,10 +228,9 @@ typedef void(^TasksBlock)(NSString *msg);
                         auth = [auth stringByAppendingString:@"PSK"];
                     }
                     NSString *encry = [temArr.lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-//                    [infos.lastObject hasPrefix:self.ssid]
-                    self.scanWiFiResult(infos.lastObject, auth, encry);
+                    self.scanWiFiResult(self, infos.lastObject, auth, encry);
                 } else if([auth hasPrefix:@"OPEN"]) {
-                    self.scanWiFiResult(infos.lastObject, @"OPEN", @"NONE");
+                    self.scanWiFiResult(self, infos.lastObject, @"OPEN", @"NONE");
                 }
             }
         };
@@ -212,14 +246,16 @@ typedef void(^TasksBlock)(NSString *msg);
 - (ConnectorHelper *(^)(NSString *psw, NSString *auth, NSString *encry))setPsw {
     ConnectorHelper *(^block)(NSString *, NSString *, NSString *) = ^(NSString *psw, NSString *auth, NSString *encry) {
         if (psw) {
-//            [self.commands addObject:[NSString stringWithFormat:@"LSD_WIFI:AT+WSKEY=%@,%@,%@\r\n",auth, encry, psw]];
             [self.commands addObject:[NSString stringWithFormat:self.moduleCmds[CommondIdx_Psw],auth, encry, psw]];
         } else {
             [self.commands addObject:self.moduleCmds[CommondIdx_PswOpen]];
         }
         TasksBlock block = ^(NSString *msg){
+            _receiveWiFiInfo = NO;
             if ([msg containsString:@"+ok"]) {
                 [self nextCommond];
+            } else if ([msg containsString:@"+ERR=-4"]) {
+                self.resultBlock(self, NO, _taskPointer);
             }
         };
         [self.tasks addObject:block];
@@ -235,6 +271,7 @@ typedef void(^TasksBlock)(NSString *msg);
     ConnectorHelper *(^block)(NSString *) = ^(NSString *ssid) {
         [self.commands addObject:[NSString stringWithFormat:self.moduleCmds[CommondIdx_SSID],ssid]];
         TasksBlock block = ^(NSString *msg){
+            _receiveWiFiInfo = NO;
             if ([msg containsString:@"+ok"]) {
                 [self nextCommond];
             }
@@ -247,15 +284,31 @@ typedef void(^TasksBlock)(NSString *msg);
     return block;
 }
 
+- (ConnectorHelper *(^)(NSString *, NSString *))scanForSSIDAndSetPsw {
+    ConnectorHelper *(^block)(NSString *, NSString *) = ^(NSString *ssid, NSString *psw) {
+        self.scanWiFi();
+        self.scanWiFiResult = ^(ConnectorHelper *helper, NSString *ssidT, NSString *auth, NSString *encry) {
+            NSLog(@"*=*=*=*=* \n ssid: %@ \n auth: %@ \n encry: %@", ssid, auth, encry);
+            if (_receiveWiFiInfo && [ssidT hasPrefix:ssid]) {
+                helper.setPsw(psw, auth, encry).setSSID(@"ezdeiMac").begin();
+            }
+        };
+        
+        return self;
+    };
+    
+    return block;
+}
+
 - (ConnectorHelper *(^)(void))getMac {
-    [self.commands addObject:self.moduleCmds[CommondIdx_Mac]];
     ConnectorHelper *(^block)(void) = ^(void) {
+        [self.commands addObject:self.moduleCmds[CommondIdx_Mac]];
         TasksBlock block = ^(NSString *msg){
             if ([msg containsString:@"+ok"]) {
                 NSArray *arr = [msg componentsSeparatedByString:@"="];
                 if (arr != nil && arr.count == 2) {
                     NSString *mac = [arr[1] substringToIndex:12];
-                    self.getMacResult(mac);
+                    self.getMacResult(self, mac);
                     [self nextCommond];
                 }
             }
@@ -266,16 +319,36 @@ typedef void(^TasksBlock)(NSString *msg);
     };
     
     return block;
+}
 
+#pragma mark -
+- (ConnectorHelper *(^)(void))begin {
+    ConnectorHelper *(^block)(void) = ^(void) {
+        [_timeoutTimer invalidate];
+        _timeoutTimer = nil;
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:20.f target:self selector:@selector(timeout) userInfo:nil repeats:NO];
+
+        [self nextCommond];
+        return self;
+    };
+    return block;
+}
+
+- (void)timeout {
+    if (_taskPointer < self.commands.count - 1) {
+        self.resultBlock(self, false, _taskPointer);
+        [self.udpSocket close];
+    }
 }
 
 - (void)nextCommond {
-    if (_taskPointer < (NSInteger)self.commands.count) {
+    self.resultBlock(self, true, _taskPointer);
+    if (_taskPointer < (NSInteger)self.commands.count - 1) {
         NSString *instruction = self.commands[(_taskPointer + 1)];
         NSData *data = [instruction dataUsingEncoding:NSUTF8StringEncoding];
         [self.udpSocket sendData:data withTimeout:30 tag:(_taskPointer + 1)];
     } else {
-        // Succeed finnish all commond
+        NSLog(@"*=*=%s=*=* :\nSucceed finnish all commond", __func__);
     }
 }
 
@@ -283,16 +356,18 @@ typedef void(^TasksBlock)(NSString *msg);
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address {
     NSLog(@"+=+= Did connect +=+=");
     
+    self.tasks[_taskPointer]([NSString stringWithFormat:@"%@", address]);
+    
     NSError *error = nil;
     if ([sock receiveOnce:&error]) {
         
-        [self nextCommond]; // 前导指令
+        self.begin();
         
         __weak typeof(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (_taskPointer == 0) {
                 // 失败
-                weakSelf.resultBlock(false, _taskPointer);
+                weakSelf.resultBlock(self, false, _taskPointer);
                 [sock close];
             }
         });
@@ -302,6 +377,7 @@ typedef void(^TasksBlock)(NSString *msg);
 }
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag {
+    NSLog(@"+=+= Did send data with tag: +=+=\n%ld", tag);
     _taskPointer++;
 }
 
@@ -318,14 +394,17 @@ typedef void(^TasksBlock)(NSString *msg);
     NSLog(@"+=+= Received massage: +=+=\n%@", msg);
     
     NSError *error = nil;
-    if ([sock receiveOnce:&error]) {
+    if ([sock receiveOnce:&error] && _taskPointer < self.tasks.count) {
         self.tasks[_taskPointer](msg);
     } else {
         NSLog(@"Error receiving: %@", error);
     }
 }
 
-
+- (void)dealloc {
+    [_timeoutTimer invalidate];
+    _timeoutTimer = nil;
+}
 #pragma mark -
 // 当前 wLan ssid
 + (NSString *)currentSSID {

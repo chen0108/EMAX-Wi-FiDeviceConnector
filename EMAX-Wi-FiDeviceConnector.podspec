@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "EMAX-Wi-FiDeviceConnector"
-  s.version      = "0.0.7"
+  s.version      = "0.0.8"
   s.summary      = "Framework container ConnectorManager class and customizable UI."
 
 

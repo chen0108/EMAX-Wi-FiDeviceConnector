@@ -26,13 +26,9 @@
 
 - (ConnectorHelper *)mgr {
     if (_mgr == nil) {
-//        _customizer.host = @"11.11.11.254";
-//        _customizer.port = 8800;
-
-        _mgr = [[ConnectorHelper alloc] initWithHost:@"11.11.11.254" port:8800 module:WiFiModule_W001];
-        _mgr.resultBlock = ^(BOOL isSuccess, NSUInteger taskPointer) {
-            
-        };
+//        _mgr = [[ConnectorHelper alloc] initWithHost:@"11.11.11.254" port:8800 module:WiFiModule_W001];
+        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.100.255" port:48899 module:WiFiModule_W002];
+        
     }
     
     return _mgr;
@@ -58,43 +54,23 @@
 
 - (void)nextStepAction {
 //    [self showLoadingView];
-    self.mgr.connectToDevice().connectionTest().scanWiFi();
+    self.mgr.connectToDeviceAndBegin().connectionTest();//.scanForSSIDAndSetPsw(@"ezdeiMac", @"ezdeimac");
     
-    self.mgr.connectionTestResult = ^(NSString *mac) {
+    self.mgr.connectionTestResult = ^(ConnectorHelper *helper, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
     };
     
-    self.mgr.scanWiFiResult = ^(NSString *ssid, NSString *auth, NSString *encry) {
-        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
+//    self.mgr.scanWiFiResult = ^(ConnectorHelper *helper, NSString *ssid, NSString *auth, NSString *encry) {
+//        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
+//        if ([ssid hasPrefix:@"ezdeiMac"]) {
+//            helper.setPsw(@"ezde", auth, encry).setSSID(@"ezdeiMac").begin();
+//        }
+//    };
+
+    self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
+        NSLog(@"*=*=%s=*=* :%d %lu", __func__, isSuccess, taskPointer);
     };
 
-    
-//    [self.mgr beginConnectTaskWithSSID:self.ssid pin:self.psw finishBlock:^(BOOL isSuccess, TagMean tag) {
-//        if (isSuccess) { // success
-//            NSString *msg = [self messageWithTag:tag isSuccess:YES];
-//            if (tag == TagMean_Succeed) {
-//                [self dismissLoadingView];
-//                [self showConfirmAlertViewWithMsg:msg shouldJump:YES confirmBlock:^{
-//                    if (self.customizer.successBlock) {
-//                        self.customizer.successBlock(self, self.mgr.deviceMAC);
-//                    }
-//                }];
-//            } else {
-//                self.statusLb.text = EMAXConnectorLocalizedString(@"Initializing connection");
-//            }
-//        } else { // failure
-//            [self dismissLoadingView];
-//            NSString *msg = nil;
-//            if (tag == 0) {
-//                msg = [self messageWithTag:TagMean_Init isSuccess:NO];
-//            } else {
-//                // except 'init', 'isSuccess' indicate previous action is succuss
-//                msg = [self messageWithTag:(tag - 1) isSuccess:NO];
-//            }
-//            [self showConfirmAlertViewWithMsg:msg shouldJump:NO confirmBlock:nil];
-//        }
-//        
-//    }];
 }
 
 - (void)showLoadingView {
