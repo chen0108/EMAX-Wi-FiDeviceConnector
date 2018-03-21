@@ -27,7 +27,7 @@
 - (ConnectorHelper *)mgr {
     if (_mgr == nil) {
 //        _mgr = [[ConnectorHelper alloc] initWithHost:@"11.11.11.254" port:8800 module:WiFiModule_W001];
-        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.100.255" port:48899 module:WiFiModule_W002];
+        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.10.255" port:48899 module:WiFiModule_W002];
         
     }
     
@@ -56,6 +56,9 @@
 //    [self showLoadingView];
     self.mgr.connectToDeviceAndBegin().connectionTest();//.scanForSSIDAndSetPsw(@"ezdeiMac", @"ezdeimac");
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.mgr.setAPWorkMode().begin();
+    });
     self.mgr.connectionTestResult = ^(ConnectorHelper *helper, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
     };
@@ -68,7 +71,7 @@
 //    };
 
     self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
-        NSLog(@"*=*=%s=*=* :%d %lu", __func__, isSuccess, taskPointer);
+        NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
     };
 
 }

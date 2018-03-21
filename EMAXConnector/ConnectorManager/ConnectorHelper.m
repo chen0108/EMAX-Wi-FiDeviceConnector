@@ -42,13 +42,13 @@ static NSString * const W001Commonds[] = {
 };
 
 static NSString * const W002Commonds[] = {
-    @"HF-A11ASSISTHREAD",                   // 1 连接测试
+    @"AT+HF-A11ASSISTHREAD\r",                   // 1 连接测试
     @"AT+WSCAN",                            // 4 扫描热点
     @"AT+WSKEY=%@,%@,%@",                   // 5 设置Wi-Fi密码 加密方式
     @"AT+WSKEY=OPEN,NONE",                  // 6 设置开放的Wi-Fi
     @"AT+WSSSID=%@",                        // 6 设置SSID
     @"AT+WSMAC",                            // * 获取设备MAC
-    @"AT+WMODE=APSTA",                      // 2 设置设备工作模式
+    @"AT+WMODE=APSTA\r",                    // 2 设置设备工作模式
     @"AT+NETP=UDP,CLIENT,%@,%@",            // 3 设置设备服务端端口、地址
     @"AT+WSLK",                             // 7 查寻STA连接状态
     @"AT+ENTM",                             // 8 模块进入透传模式
@@ -154,6 +154,10 @@ typedef void(^TasksBlock)(NSString *msg);
             [self udpSocket:_udpSocket didConnectToAddress:_udpSocket.connectedAddress];
         } else {
             NSError *error = nil;
+            if ([_udpSocket bindToPort:self.port error:&error] == false) {
+                NSLog(@"Error bindToPort: %@", error);
+                self.resultBlock(self, false, _taskPointer);
+            }
             if ([_udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
                 NSLog(@"Error connecting: %@", error);
                 self.resultBlock(self, false, _taskPointer);
@@ -346,7 +350,7 @@ typedef void(^TasksBlock)(NSString *msg);
     if (_taskPointer < (NSInteger)self.commands.count - 1) {
         NSString *instruction = self.commands[(_taskPointer + 1)];
         NSData *data = [instruction dataUsingEncoding:NSUTF8StringEncoding];
-        [self.udpSocket sendData:data withTimeout:30 tag:(_taskPointer + 1)];
+        [self.udpSocket sendData:data withTimeout:20 tag:(_taskPointer + 1)];
     } else {
         NSLog(@"*=*=%s=*=* :\nSucceed finnish all commond", __func__);
     }
@@ -379,6 +383,9 @@ typedef void(^TasksBlock)(NSString *msg);
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag {
     NSLog(@"+=+= Did send data with tag: +=+=\n%ld", tag);
     _taskPointer++;
+}
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error {
+    NSLog(@"+=+= Did not send data with tag: +=+=\n%ld dueToError:%@", tag, error);
 }
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContext {
