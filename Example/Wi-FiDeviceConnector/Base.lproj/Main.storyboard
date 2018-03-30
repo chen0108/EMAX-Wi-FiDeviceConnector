@@ -48,12 +48,21 @@
                                     <action selector="newStyleAction" destination="Hrf-Lz-xWo" eventType="touchUpInside" id="uct-ds-Nre"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYr-Fr-A9z">
+                                <rect key="frame" x="131.5" y="451" width="111" height="30"/>
+                                <state key="normal" title="TestNewModule"/>
+                                <connections>
+                                    <action selector="TestNewModuleAction" destination="Hrf-Lz-xWo" eventType="touchUpInside" id="uah-qx-q9A"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="KYr-Fr-A9z" firstAttribute="top" secondItem="YAi-wX-bXP" secondAttribute="bottom" constant="52.5" id="2nm-mh-5uS"/>
                             <constraint firstItem="bNP-p2-XfB" firstAttribute="centerY" secondItem="ijm-GD-ftk" secondAttribute="centerY" constant="-50" id="UWL-MY-X2x"/>
                             <constraint firstItem="bNP-p2-XfB" firstAttribute="centerX" secondItem="ijm-GD-ftk" secondAttribute="centerX" id="Vbb-gC-TIF"/>
                             <constraint firstItem="YAi-wX-bXP" firstAttribute="centerY" secondItem="ijm-GD-ftk" secondAttribute="centerY" constant="50" id="jdb-MZ-DKl"/>
+                            <constraint firstItem="KYr-Fr-A9z" firstAttribute="centerX" secondItem="ijm-GD-ftk" secondAttribute="centerX" id="qJA-86-JAq"/>
                             <constraint firstItem="YAi-wX-bXP" firstAttribute="centerX" secondItem="ijm-GD-ftk" secondAttribute="centerX" id="to6-ez-2lh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4TN-FL-OwL"/>

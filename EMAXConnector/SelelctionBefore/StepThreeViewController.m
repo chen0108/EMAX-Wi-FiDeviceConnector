@@ -27,7 +27,7 @@
 
 - (ConnectorHelper *)mgr {
     if (_mgr == nil) {
-        _mgr = [[ConnectorHelper alloc] initWithHost:self.customizer.host port:self.customizer.port module:WiFiModule_W001];
+        _mgr = [[ConnectorHelper alloc] initWithHost:self.customizer.host port:self.customizer.port module:(NSUInteger)self.customizer.module];
     }
     
     return _mgr;

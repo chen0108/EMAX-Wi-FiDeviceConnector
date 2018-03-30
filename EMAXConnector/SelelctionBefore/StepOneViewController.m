@@ -25,12 +25,6 @@
 - (ConnectorCustomizer *)customizer {
     if (_customizer == nil) {
         _customizer = [ConnectorCustomizer new];
-        _customizer.tintColor = [UIColor blackColor];
-        _customizer.textColor = [UIColor blackColor];
-        _customizer.btnTextColor = [UIColor whiteColor];
-        _customizer.deviceSSID = @"LivingSmart";
-        _customizer.host = @"11.11.11.254";
-        _customizer.port = 8800;
     }
     
     return _customizer;

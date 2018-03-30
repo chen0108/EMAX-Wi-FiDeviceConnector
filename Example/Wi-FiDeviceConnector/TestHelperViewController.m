@@ -9,6 +9,7 @@
 #import "TestHelperViewController.h"
 #import "ConnectorHelper.h"
 #import "UIImage+tint.h"
+#import "W001ConnectorManager.h"
 
 @interface TestHelperViewController ()
 
@@ -20,6 +21,8 @@
 
 @property (nonatomic, strong) UILabel *statusLb;
 
+@property (nonatomic, strong) W001ConnectorManager *mgr1;
+
 @end
 
 @implementation TestHelperViewController
@@ -27,11 +30,18 @@
 - (ConnectorHelper *)mgr {
     if (_mgr == nil) {
 //        _mgr = [[ConnectorHelper alloc] initWithHost:@"11.11.11.254" port:8800 module:WiFiModule_W001];
-        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.10.255" port:48899 module:WiFiModule_W002];
-        
+        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.100.255" port:48899 module:WiFiModule_W002];
     }
     
     return _mgr;
+}
+
+- (W001ConnectorManager *)mgr1 {
+    if (_mgr1 == nil) {
+        _mgr1 = [[W001ConnectorManager alloc] initWithHost:@"11.11.11.254" port:8800];
+    }
+    
+    return _mgr1;
 }
 
 - (void)viewDidLoad {
@@ -41,7 +51,7 @@
     UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
-    nextStepBtn.enabled = [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID];
+//    nextStepBtn.enabled = [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID];
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
@@ -53,12 +63,7 @@
 }
 
 - (void)nextStepAction {
-//    [self showLoadingView];
-    self.mgr.connectToDeviceAndBegin().connectionTest();//.scanForSSIDAndSetPsw(@"ezdeiMac", @"ezdeimac");
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.mgr.setAPWorkMode().begin();
-    });
+/*
     self.mgr.connectionTestResult = ^(ConnectorHelper *helper, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
     };
@@ -73,6 +78,25 @@
     self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
         NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
     };
+
+    self.mgr.connectToDeviceAndBegin();//.connectionTest();//.scanForSSIDAndSetPsw(@"ezdeiMac", @"ezdeimac");
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        self.mgr.setAPWorkMode().begin();
+    //    });
+    */
+    
+    self.mgr1.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
+        NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
+    };
+    self.mgr1.scanWiFiResult = ^(W001ConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
+        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
+    };
+    self.mgr1.connectionTestResult = ^(W001ConnectorManager *helper, NSString *mac) {
+        NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
+    };
+    [self.mgr1 connectToDevice:^(W001ConnectorManager *mgr) {
+        mgr.connectionTest().scanWiFi().begin();
+    }];
 
 }
 

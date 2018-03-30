@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) ConnectorCustomizer *customizer;
 
-@property (strong, nonatomic) NSString *ssid;
-@property (strong, nonatomic) NSString *psw;
+@property (copy, nonatomic) NSString *ssid;
+@property (copy, nonatomic) NSString *psw;
 
 @end

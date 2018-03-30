@@ -24,6 +24,11 @@
 
 #define kPadding 20
 
+typedef enum : NSUInteger {
+    DeviceModule_W001,
+    DeviceModule_W002,
+} DeviceModule;
+
 @interface ConnectorCustomizer : NSObject
 
 /**
@@ -57,6 +62,9 @@
 /**
  default is 8800 */
 @property (nonatomic, assign) uint16_t port;
+/**
+ default is DeviceModule_W001 */
+@property (nonatomic, assign) DeviceModule module;
 
 /**
  All done block */

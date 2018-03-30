@@ -30,4 +30,28 @@
     
     return _btnTextColor;
 }
+
+- (NSString *)deviceSSID {
+    if (_deviceSSID == nil) {
+        _deviceSSID = @"LivingSmart";
+    }
+    
+    return _deviceSSID;
+}
+
+- (NSString *)host {
+    if (_host == nil) {
+        _host = @"11.11.11.254";
+    }
+    
+    return _host;
+}
+
+- (uint16_t)port {
+    if (_port == 0) {
+        _port = 8800;
+    }
+    
+    return _port;
+}
 @end

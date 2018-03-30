@@ -23,6 +23,11 @@
 		2042835C201ED1E90013DED0 /* StepTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20428353201ED1E90013DED0 /* StepTwoViewController.m */; };
 		2067B017201AFBCE006661A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2067B016201AFBCE006661A2 /* ViewController.m */; };
 		206C1F1F205BB2C70046809C /* ConnectorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 206C1F1E205BB2C70046809C /* ConnectorHelper.m */; };
+		2075722B2068BFCC0009BBAA /* WInStepOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2075722A2068BFCC0009BBAA /* WInStepOneViewController.m */; };
+		2075722E2068C3730009BBAA /* WInStepTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2075722D2068C3730009BBAA /* WInStepTwoViewController.m */; };
+		207572312068D8740009BBAA /* WInStepThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207572302068D8740009BBAA /* WInStepThreeViewController.m */; };
+		20757235206C98580009BBAA /* BaseConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757234206C98580009BBAA /* BaseConnectorManager.m */; };
+		20757238206CD99B0009BBAA /* W001ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757237206CD99B0009BBAA /* W001ConnectorManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +62,16 @@
 		2067B016201AFBCE006661A2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		206C1F1D205BB2C70046809C /* ConnectorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectorHelper.h; sourceTree = "<group>"; };
 		206C1F1E205BB2C70046809C /* ConnectorHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectorHelper.m; sourceTree = "<group>"; };
+		207572292068BFCC0009BBAA /* WInStepOneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WInStepOneViewController.h; sourceTree = "<group>"; };
+		2075722A2068BFCC0009BBAA /* WInStepOneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WInStepOneViewController.m; sourceTree = "<group>"; };
+		2075722C2068C3730009BBAA /* WInStepTwoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WInStepTwoViewController.h; sourceTree = "<group>"; };
+		2075722D2068C3730009BBAA /* WInStepTwoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WInStepTwoViewController.m; sourceTree = "<group>"; };
+		2075722F2068D8740009BBAA /* WInStepThreeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WInStepThreeViewController.h; sourceTree = "<group>"; };
+		207572302068D8740009BBAA /* WInStepThreeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WInStepThreeViewController.m; sourceTree = "<group>"; };
+		20757233206C98580009BBAA /* BaseConnectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseConnectorManager.h; sourceTree = "<group>"; };
+		20757234206C98580009BBAA /* BaseConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseConnectorManager.m; sourceTree = "<group>"; };
+		20757236206CD99B0009BBAA /* W001ConnectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = W001ConnectorManager.h; sourceTree = "<group>"; };
+		20757237206CD99B0009BBAA /* W001ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W001ConnectorManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +115,8 @@
 		20020410201862AB00AEE3E7 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				202DC0A5205F5DE4008E2304 /* TestHelperViewController.h */,
+				202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */,
 				200203D82015B46000AEE3E7 /* AppDelegate.h */,
 				200203D92015B46000AEE3E7 /* AppDelegate.m */,
 				200203DE2015B46000AEE3E7 /* Main.storyboard */,
@@ -129,12 +146,13 @@
 		20428344201ED1E90013DED0 /* ConnectorManager */ = {
 			isa = PBXGroup;
 			children = (
+				20757232206C983E0009BBAA /* Base */,
 				206C1F1D205BB2C70046809C /* ConnectorHelper.h */,
 				206C1F1E205BB2C70046809C /* ConnectorHelper.m */,
+				20757236206CD99B0009BBAA /* W001ConnectorManager.h */,
+				20757237206CD99B0009BBAA /* W001ConnectorManager.m */,
 				20428345201ED1E90013DED0 /* ConnectorManager.h */,
 				20428346201ED1E90013DED0 /* ConnectorManager.m */,
-				20428347201ED1E90013DED0 /* GCDAsyncUdpSocket.h */,
-				20428348201ED1E90013DED0 /* GCDAsyncUdpSocket.m */,
 			);
 			path = ConnectorManager;
 			sourceTree = "<group>";
@@ -157,10 +175,25 @@
 		206C1F1C205A6B790046809C /* SelelctionInBetween */ = {
 			isa = PBXGroup;
 			children = (
-				202DC0A5205F5DE4008E2304 /* TestHelperViewController.h */,
-				202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */,
+				207572292068BFCC0009BBAA /* WInStepOneViewController.h */,
+				2075722A2068BFCC0009BBAA /* WInStepOneViewController.m */,
+				2075722C2068C3730009BBAA /* WInStepTwoViewController.h */,
+				2075722D2068C3730009BBAA /* WInStepTwoViewController.m */,
+				2075722F2068D8740009BBAA /* WInStepThreeViewController.h */,
+				207572302068D8740009BBAA /* WInStepThreeViewController.m */,
 			);
 			path = SelelctionInBetween;
+			sourceTree = "<group>";
+		};
+		20757232206C983E0009BBAA /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				20428347201ED1E90013DED0 /* GCDAsyncUdpSocket.h */,
+				20428348201ED1E90013DED0 /* GCDAsyncUdpSocket.m */,
+				20757233206C98580009BBAA /* BaseConnectorManager.h */,
+				20757234206C98580009BBAA /* BaseConnectorManager.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +227,7 @@
 				TargetAttributes = {
 					200203D42015B46000AEE3E7 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -238,7 +272,11 @@
 			files = (
 				202DC0A7205F5DE4008E2304 /* TestHelperViewController.m in Sources */,
 				206C1F1F205BB2C70046809C /* ConnectorHelper.m in Sources */,
+				20757238206CD99B0009BBAA /* W001ConnectorManager.m in Sources */,
+				20757235206C98580009BBAA /* BaseConnectorManager.m in Sources */,
 				20428359201ED1E90013DED0 /* ConnectorCustomizer.m in Sources */,
+				2075722B2068BFCC0009BBAA /* WInStepOneViewController.m in Sources */,
+				2075722E2068C3730009BBAA /* WInStepTwoViewController.m in Sources */,
 				2067B017201AFBCE006661A2 /* ViewController.m in Sources */,
 				20428357201ED1E90013DED0 /* GCDAsyncUdpSocket.m in Sources */,
 				20428358201ED1E90013DED0 /* UIImage+tint.m in Sources */,
@@ -247,6 +285,7 @@
 				2042835B201ED1E90013DED0 /* StepThreeViewController.m in Sources */,
 				200203DA2015B46000AEE3E7 /* AppDelegate.m in Sources */,
 				20428356201ED1E90013DED0 /* ConnectorManager.m in Sources */,
+				207572312068D8740009BBAA /* WInStepThreeViewController.m in Sources */,
 				2042835A201ED1E90013DED0 /* StepOneViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W8MDTQ2HQP;
 				GCC_PREFIX_HEADER = "";
@@ -392,6 +432,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.emax.Wi-FiDeviceConnector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -400,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W8MDTQ2HQP;
 				GCC_PREFIX_HEADER = "";
@@ -408,6 +451,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.emax.Wi-FiDeviceConnector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

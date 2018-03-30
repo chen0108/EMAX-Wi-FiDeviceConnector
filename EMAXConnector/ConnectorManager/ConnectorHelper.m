@@ -42,7 +42,7 @@ static NSString * const W001Commonds[] = {
 };
 
 static NSString * const W002Commonds[] = {
-    @"AT+HF-A11ASSISTHREAD\r",                   // 1 连接测试
+    @"HF-A11ASSISTHREAD",                   // 1 连接测试
     @"AT+WSCAN",                            // 4 扫描热点
     @"AT+WSKEY=%@,%@,%@",                   // 5 设置Wi-Fi密码 加密方式
     @"AT+WSKEY=OPEN,NONE",                  // 6 设置开放的Wi-Fi
@@ -149,19 +149,31 @@ typedef void(^TasksBlock)(NSString *msg);
             NSLog(@"*=*=Connected block=*=* :%@", msg);
         };
         [self.tasks addObject:block];
-        
-        if (_udpSocket.isConnected) {
-            [self udpSocket:_udpSocket didConnectToAddress:_udpSocket.connectedAddress];
-        } else {
-            NSError *error = nil;
-            if ([_udpSocket bindToPort:self.port error:&error] == false) {
-                NSLog(@"Error bindToPort: %@", error);
-                self.resultBlock(self, false, _taskPointer);
+        if (self.module == WiFiModule_W001) {
+            
+            if (_udpSocket.isConnected) {
+                [self udpSocket:_udpSocket didConnectToAddress:_udpSocket.connectedAddress];
+            } else {
+                NSError *error = nil;
+                if ([_udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
+                    NSLog(@"Error connecting: %@", error);
+                    self.resultBlock(self, false, _taskPointer);
+                };
             }
-            if ([_udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
-                NSLog(@"Error connecting: %@", error);
-                self.resultBlock(self, false, _taskPointer);
+            
+        } else {
+            [self.commands addObject:self.moduleCmds[CommondIdx_Test]];
+            TasksBlock block = ^(NSString *msg){
+                NSLog(@"*=*=Connected block=*=* :%@", msg);
             };
+            [self.tasks addObject:block];
+            
+            NSError *error = nil;
+            [_udpSocket enableBroadcast:YES error:&error];
+            [_udpSocket bindToPort:self.port error:&error];
+            [self.udpSocket receiveOnce:&error];
+            
+            [self nextCommond];
         }
         return self;
     };
@@ -346,26 +358,34 @@ typedef void(^TasksBlock)(NSString *msg);
 }
 
 - (void)nextCommond {
-    self.resultBlock(self, true, _taskPointer);
-    if (_taskPointer < (NSInteger)self.commands.count - 1) {
-        NSString *instruction = self.commands[(_taskPointer + 1)];
-        NSData *data = [instruction dataUsingEncoding:NSUTF8StringEncoding];
-        [self.udpSocket sendData:data withTimeout:20 tag:(_taskPointer + 1)];
-    } else {
-        NSLog(@"*=*=%s=*=* :\nSucceed finnish all commond", __func__);
+    if (self.resultBlock) {
+        self.resultBlock(self, true, _taskPointer);
+        if (_taskPointer < (NSInteger)self.commands.count - 1) {
+            NSString *instruction = self.commands[(_taskPointer + 1)];
+            NSData *data = [instruction dataUsingEncoding:NSUTF8StringEncoding];
+            if (self.udpSocket.isConnected) {
+                [self.udpSocket sendData:data withTimeout:20 tag:(_taskPointer + 1)];
+            } else {
+                [self.udpSocket sendData:data toHost:self.host port:self.port withTimeout:20 tag:(_taskPointer + 1)];
+            }
+        } else {
+            NSLog(@"*=*=%s=*=* :\nSucceed finnish all commond", __func__);
+        }        
     }
 }
 
 #pragma mark -
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address {
     NSLog(@"+=+= Did connect +=+=");
-    
     self.tasks[_taskPointer]([NSString stringWithFormat:@"%@", address]);
     
     NSError *error = nil;
-    if ([sock receiveOnce:&error]) {
+    [sock enableBroadcast:YES error:&error];
+    if ([sock beginReceiving:&error]) {
         
-        self.begin();
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.begin();
+        });
         
         __weak typeof(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -409,9 +429,12 @@ typedef void(^TasksBlock)(NSString *msg);
 }
 
 - (void)dealloc {
+    [self.udpSocket close];
+    
     [_timeoutTimer invalidate];
     _timeoutTimer = nil;
 }
+
 #pragma mark -
 // 当前 wLan ssid
 + (NSString *)currentSSID {
