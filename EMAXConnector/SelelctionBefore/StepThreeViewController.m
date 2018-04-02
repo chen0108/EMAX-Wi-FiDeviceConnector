@@ -7,15 +7,17 @@
 //
 
 #import "StepThreeViewController.h"
-#import "ConnectorManager.h"
-#import "ConnectorHelper.h"
+//#import "ConnectorManager.h"
+//#import "ConnectorHelper.h"
+#import "W001ConnectorManager.h"
+
 @interface StepThreeViewController ()
 
 @property (nonatomic, strong) UIButton *nextStepBtn;
 
 @property (nonatomic, strong) UIView *loadingView;
 
-@property (nonatomic, strong) ConnectorHelper *mgr;
+@property (nonatomic, strong) W001ConnectorManager *mgr;
 
 @property (nonatomic, strong) UILabel *statusLb;
 
@@ -25,9 +27,9 @@
 
 @implementation StepThreeViewController
 
-- (ConnectorHelper *)mgr {
+- (W001ConnectorManager *)mgr {
     if (_mgr == nil) {
-        _mgr = [[ConnectorHelper alloc] initWithHost:self.customizer.host port:self.customizer.port module:(NSUInteger)self.customizer.module];
+        _mgr = [[W001ConnectorManager alloc] initWithHost:self.customizer.host port:self.customizer.port];
     }
     
     return _mgr;
@@ -50,7 +52,7 @@
     UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
-    nextStepBtn.enabled = [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID];
+    nextStepBtn.enabled = [[W001ConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
@@ -75,7 +77,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     }
 }
 - (void)onNetworkChange {
-    self.nextStepBtn.enabled = [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID];
+    self.nextStepBtn.enabled = [[W001ConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
 }
 - (void)dealloc {
     CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, CFSTR("com.apple.system.config.network_change"), NULL);
@@ -106,18 +108,21 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
 - (void)nextStepAction {
     [self showLoadingView];
     // 0:连接  1:测试  2:扫描  3:设置密码  4:设置ssid
-    self.mgr.connectToDeviceAndBegin().connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw);
-
+//    self.mgr.connectToDeviceAndBegin().connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw);
+    [self.mgr connectToDevice:^(W001ConnectorManager *mgr) {
+        mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
+    }];
+    
     __weak typeof(self) weakSelf = self;
-    self.mgr.connectionTestResult = ^(ConnectorHelper *helper, NSString *mac) {
+    self.mgr.connectionTestResult = ^(W001ConnectorManager *mgr, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
         weakSelf.deviceMAC = mac;
     };
     
-    self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
+    self.mgr.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
         NSLog(@"*=*= ResultBlock =*=* :%d %ld", isSuccess, taskPointer);
         if (isSuccess) {
-            NSString *msg = [weakSelf messageWithTask:taskPointer isSuccess:YES];
+            NSString *msg = [weakSelf messageWithTask:(taskPointer + 1) isSuccess:YES];
             weakSelf.statusLb.text = msg;
             if (taskPointer == 4) {
                 [weakSelf dismissLoadingView];
@@ -151,14 +156,21 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
             break;
         }
         case 3: {
-            msg = EMAXConnectorLocalizedString(@"Setting Wi-Fi PIN");
+            msg = EMAXConnectorLocalizedString(@"Setting Wi-Fi SSID");
+
             break;
         }
         case 4: { // 最后一个任务
+//            if (isSuccess) {
+//                msg = EMAXConnectorLocalizedString(@"Connection sucessful, please press and hold WiFi button for 3 seconds again to complete the setting.");
+//            } else {
+                msg = EMAXConnectorLocalizedString(@"Setting Wi-Fi PIN");
+//            }
+            break;
+        }
+        case 5: {
             if (isSuccess) {
                 msg = EMAXConnectorLocalizedString(@"Connection sucessful, please press and hold WiFi button for 3 seconds again to complete the setting.");
-            } else {
-                msg = EMAXConnectorLocalizedString(@"Setting Wi-Fi SSID");
             }
             break;
         }
@@ -200,7 +212,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     [container addSubview:circle];
     [self startAnimation:circle];
     
-    self.statusLb.text = @"";
+    self.statusLb.text = [self messageWithTask:0 isSuccess:YES];
     [maskView addSubview:self.statusLb];
     
     _loadingView = maskView;

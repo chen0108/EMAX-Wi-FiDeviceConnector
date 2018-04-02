@@ -19,7 +19,7 @@
 - (W001ConnectorManager *(^)(void))connectionTest;
 /**
  扫描Wi-Fi */
-- (BaseConnectorManager *(^)(void))scanWiFi;
+- (W001ConnectorManager *(^)(void))scanWiFi;
 /**
  设置密码 */
 - (W001ConnectorManager *(^)(NSString *psw, NSString *auth, NSString *encry))setPsw;

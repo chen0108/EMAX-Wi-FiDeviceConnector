@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
 
 - (void)connectToDevice:(void(^)(W001ConnectorManager *mgr))didConnectedblock {
     __weak typeof(self) weakSelf = self;
-    self.didBeginReceiving = ^{ // 连接成功后便启动 接收数据
+    self.didBeginReceiving = ^{ // 连接成功后便开始 接收数据
         didConnectedblock(weakSelf);
     };
 
@@ -76,8 +76,8 @@ typedef enum : NSUInteger {
     };
 }
 
-- (BaseConnectorManager *(^)(void))scanWiFi {
-    return ^BaseConnectorManager *(void) {
+- (W001ConnectorManager *(^)(void))scanWiFi {
+    return ^W001ConnectorManager *(void) {
         [self.commands addObject:W001Commonds[W001CommondIdx_Scan]];
         //        _receiveWiFiInfo = YES;
         HandleDataBlock block = ^(NSString *msg){
@@ -149,11 +149,11 @@ typedef enum : NSUInteger {
 
 - (W001ConnectorManager *(^)(NSString *, NSString *))scanForSSIDAndSetPsw {
     W001ConnectorManager *(^block)(NSString *, NSString *) = ^(NSString *ssid, NSString *psw) {
-        self.scanWiFi();
+        self.scanWiFi().setSSID(ssid);
         self.scanWiFiResult = ^(W001ConnectorManager *mgr, NSString *ssidT, NSString *auth, NSString *encry) {
             NSLog(@"*=*=*=*=* \n ssid: %@ \n auth: %@ \n encry: %@", ssid, auth, encry);
             if ([ssidT hasPrefix:ssid]) {
-                mgr.setPsw(psw, auth, encry).setSSID(@"ezdeiMac").begin();
+                mgr.setPsw(psw, auth, encry).begin();
             }
         };
         

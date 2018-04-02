@@ -28,6 +28,7 @@
 		207572312068D8740009BBAA /* WInStepThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207572302068D8740009BBAA /* WInStepThreeViewController.m */; };
 		20757235206C98580009BBAA /* BaseConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757234206C98580009BBAA /* BaseConnectorManager.m */; };
 		20757238206CD99B0009BBAA /* W001ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757237206CD99B0009BBAA /* W001ConnectorManager.m */; };
+		207572CF20721E770009BBAA /* W002ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 207572CE20721E770009BBAA /* W002ConnectorManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,8 @@
 		20757234206C98580009BBAA /* BaseConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseConnectorManager.m; sourceTree = "<group>"; };
 		20757236206CD99B0009BBAA /* W001ConnectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = W001ConnectorManager.h; sourceTree = "<group>"; };
 		20757237206CD99B0009BBAA /* W001ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W001ConnectorManager.m; sourceTree = "<group>"; };
+		207572CD20721E770009BBAA /* W002ConnectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = W002ConnectorManager.h; sourceTree = "<group>"; };
+		207572CE20721E770009BBAA /* W002ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W002ConnectorManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				206C1F1E205BB2C70046809C /* ConnectorHelper.m */,
 				20757236206CD99B0009BBAA /* W001ConnectorManager.h */,
 				20757237206CD99B0009BBAA /* W001ConnectorManager.m */,
+				207572CD20721E770009BBAA /* W002ConnectorManager.h */,
+				207572CE20721E770009BBAA /* W002ConnectorManager.m */,
 				20428345201ED1E90013DED0 /* ConnectorManager.h */,
 				20428346201ED1E90013DED0 /* ConnectorManager.m */,
 			);
@@ -286,6 +291,7 @@
 				200203DA2015B46000AEE3E7 /* AppDelegate.m in Sources */,
 				20428356201ED1E90013DED0 /* ConnectorManager.m in Sources */,
 				207572312068D8740009BBAA /* WInStepThreeViewController.m in Sources */,
+				207572CF20721E770009BBAA /* W002ConnectorManager.m in Sources */,
 				2042835A201ED1E90013DED0 /* StepOneViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
