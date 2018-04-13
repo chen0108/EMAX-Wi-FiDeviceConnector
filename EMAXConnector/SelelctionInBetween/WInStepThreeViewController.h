@@ -7,13 +7,13 @@
 //
 
 #import "WInStepOneViewController.h"
-#import "ConnectorHelper.h"
+#import "W001ConnectorManager.h"
 
 @interface WInStepThreeViewController : UIViewController
 
 @property (nonatomic, strong) ConnectorCustomizer *customizer;
 
-@property (nonatomic, strong) ConnectorHelper *mgr;
+@property (nonatomic, strong) W001ConnectorManager *mgr;
 
 @property (nonatomic, copy) NSString *mac;
 

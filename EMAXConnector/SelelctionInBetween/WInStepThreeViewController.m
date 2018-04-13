@@ -102,7 +102,7 @@
     
     /* * * */
     
-    self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
+    self.mgr.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
         
     };
 }
@@ -138,7 +138,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
     self.mgr.setSSID(self.ssid).setPsw(self.wlanPswTF.text, self.auth, self.encry).begin();
 
     __weak typeof(self) weakSelf = self;
-    self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
+    self.mgr.resultBlock = ^(BaseConnectorManager *helper, BOOL isSuccess, NSInteger taskPointer) {
         NSLog(@"*=*= ResultBlock =*=* :%d %ld", isSuccess, taskPointer);
         if (isSuccess) {
             NSString *msg = [weakSelf messageWithTask:taskPointer isSuccess:YES];

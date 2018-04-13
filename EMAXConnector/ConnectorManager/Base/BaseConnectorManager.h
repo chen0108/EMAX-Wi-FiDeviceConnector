@@ -13,11 +13,12 @@ typedef void(^HandleDataBlock)(NSString *msg);
 
 @interface BaseConnectorManager : NSObject
 
+@property (strong, nonatomic) GCDAsyncUdpSocket *udpSocket;
+
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) uint16_t port;
 - (instancetype)initWithHost:(NSString *)host port:(uint16_t)port;
 
-@property (strong, nonatomic) GCDAsyncUdpSocket *udpSocket;
 
 @property (nonatomic, assign, readonly) NSInteger taskPointer;
 @property (nonatomic, strong) NSMutableArray<NSString *> *commands;
@@ -58,12 +59,26 @@ typedef void(^HandleDataBlock)(NSString *msg);
 @property (nonatomic, copy) void(^didConnectToAddress)(GCDAsyncUdpSocket *sock, NSData *address);
 
 /**
+ 连接测试回调（返回Mac） */
+@property (nonatomic, copy) void(^connectionTestResult)(BaseConnectorManager *mgr, NSString *mac);
+
+/**
  开始接收数据
  */
 @property (nonatomic, copy) void(^didBeginReceiving)(void);
 
+/**
+ 扫描Wi-Fi回调（多次） */
+@property (nonatomic, copy) void(^scanWiFiResult)(BaseConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry);
+
+/**
+ 获取Mac回调 */
+@property (nonatomic, copy) void(^getMacResult)(BaseConnectorManager *mgr, NSString *mac);
+
+
+
 /** =+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+= **/
-#pragma mark - Class method
+#pragma mark - Convenient method
 /** =+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+= **/
 
 /**
@@ -72,6 +87,12 @@ typedef void(^HandleDataBlock)(NSString *msg);
  */
 + (NSString *)currentSSID;
 
+/**
+ 是否连接 */
 - (BOOL)isConnected;
 
+/**
+ 任务失败，通知 ‘resultBlock’
+ */
+- (void)taskFailed;
 @end

@@ -11,7 +11,7 @@
 
 @interface WInStepTwoViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) ConnectorHelper *mgr;
+@property (nonatomic, strong) W001ConnectorManager *mgr;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -25,9 +25,9 @@
 
 @implementation WInStepTwoViewController
 
-- (ConnectorHelper *)mgr {
+- (W001ConnectorManager *)mgr {
     if (_mgr == nil) {
-        _mgr = [[ConnectorHelper alloc] initWithHost:@"11.11.11.254" port:8800 module:WiFiModule_W001];
+        _mgr = [[W001ConnectorManager alloc] initWithHost:@"11.11.11.254" port:8800];
 //        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.100.255" port:48899 module:WiFiModule_W002];
     }
     
@@ -90,27 +90,33 @@
     [self.view addSubview:indicator];
     _indicator = indicator;
     
-    self.mgr.connectToDeviceAndBegin().connectionTest().scanWiFi();
-
+    
     __weak typeof(self) weakSelf = self;
-    self.mgr.connectionTestResult = ^(ConnectorHelper *helper, NSString *mac) {
+    self.mgr.connectionTestResult = ^(BaseConnectorManager *mgr, NSString *mac) {
+        
         NSLog(@"*=*=%s=*=* MAC:\n%@", __func__, mac);
-
     };
     
-    self.mgr.scanWiFiResult = ^(ConnectorHelper *helper, NSString *ssid, NSString *auth, NSString *encry) {
+    self.mgr.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
         ssid = [ssid substringToIndex:ssid.length - 3]; // " \r \n
         [weakSelf.ssids addObject:ssid];
         [weakSelf.auths addObject:auth];
         [weakSelf.encrys addObject:encry];
-
+        
 //        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(weakSelf.ssids.count - 1) inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [weakSelf.tableView reloadData];
     };
     
-    self.mgr.resultBlock = ^(ConnectorHelper *helper, BOOL isSuccess, NSInteger taskPointer) {
+    self.mgr.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
+        
         NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
     };
+    
+    [self.mgr connectToDevice:^(W001ConnectorManager *mgr) {
+        
+        mgr.connectionTest().scanWiFi().begin();
+    }];
+
 }
 
 #pragma mark -

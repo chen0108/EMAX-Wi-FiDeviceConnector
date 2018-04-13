@@ -40,19 +40,13 @@ typedef enum : NSUInteger {
 
     [self initTaskChains];
     
-    [self.commands addObject:@"connectToDevice"]; // 无实际用途 表示一项任务
-    HandleDataBlock block = ^(NSString *msg){
-        NSLog(@"*=*=Connected block=*=* :%@", msg);
-    };
-    [self.tasks addObject:block];
-    
     if (self.isConnected) {
         self.didBeginReceiving();
     } else {
         NSError *error = nil;
         if ([self.udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
             NSLog(@"Error connecting: %@", error);
-            self.resultBlock(self, false, self.taskPointer);
+            [self taskFailed];
         };
     }
 }
@@ -109,7 +103,7 @@ typedef enum : NSUInteger {
 - (W001ConnectorManager *(^)(NSString *psw, NSString *auth, NSString *encry))setPsw {
     W001ConnectorManager *(^block)(NSString *, NSString *, NSString *) = ^(NSString *psw, NSString *auth, NSString *encry) {
         if (psw) {
-            [self.commands addObject:[NSString stringWithFormat:W001Commonds[W001CommondIdx_Psw],auth, encry, psw]];
+            [self.commands addObject:[NSString stringWithFormat:W001Commonds[W001CommondIdx_Psw], auth, encry, psw]];
         } else {
             [self.commands addObject:W001Commonds[W001CommondIdx_PswOpen]];
         }
@@ -118,7 +112,7 @@ typedef enum : NSUInteger {
             if ([msg containsString:@"+ok"]) {
                 [self next];
             } else if ([msg containsString:@"+ERR=-4"]) {
-                self.resultBlock(self, NO, self.taskPointer);
+                [self taskFailed];
             }
         };
         [self.tasks addObject:block];
@@ -137,6 +131,8 @@ typedef enum : NSUInteger {
 //            _receiveWiFiInfo = NO;
             if ([msg containsString:@"+ok"]) {
                 [self next];
+            } else if ([msg containsString:@"+ERR=-4"]) {
+                [self taskFailed];
             }
         };
         [self.tasks addObject:block];
@@ -150,10 +146,11 @@ typedef enum : NSUInteger {
 - (W001ConnectorManager *(^)(NSString *, NSString *))scanForSSIDAndSetPsw {
     W001ConnectorManager *(^block)(NSString *, NSString *) = ^(NSString *ssid, NSString *psw) {
         self.scanWiFi().setSSID(ssid);
-        self.scanWiFiResult = ^(W001ConnectorManager *mgr, NSString *ssidT, NSString *auth, NSString *encry) {
+        self.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssidT, NSString *auth, NSString *encry) {
             NSLog(@"*=*=*=*=* \n ssid: %@ \n auth: %@ \n encry: %@", ssid, auth, encry);
             if ([ssidT hasPrefix:ssid]) {
-                mgr.setPsw(psw, auth, encry).begin();
+                
+                ((W001ConnectorManager *)mgr).setPsw(psw, auth, encry).begin();
             }
         };
         

@@ -34,18 +34,4 @@
  获取Mac */
 - (W001ConnectorManager *(^)(void))getMac;
 
-/** =+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+= **/
-#pragma mark - Block-delegate
-/** =+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+==+=+=+=+=+=+=+= **/
-
-/**
- 连接测试回调（返回Mac） */
-@property (nonatomic, copy) void(^connectionTestResult)(W001ConnectorManager *helper, NSString *mac);
-/**
- 扫描Wi-Fi回调（多次） */
-@property (nonatomic, copy) void(^scanWiFiResult)(W001ConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry);
-/**
- 获取Mac回调 */
-@property (nonatomic, copy) void(^getMacResult)(W001ConnectorManager *helper, NSString *mac);
-
 @end

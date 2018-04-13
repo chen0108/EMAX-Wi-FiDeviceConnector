@@ -45,6 +45,7 @@
         _host = host;
         _port = port;
     }
+    
     return self;
 }
 
@@ -55,6 +56,12 @@
     
     [_timeoutTimer invalidate];
     _timeoutTimer = nil;
+    
+    [self.commands addObject:@"connectToDevice"]; // 无实际用途 表示一项任务
+    HandleDataBlock block = ^(NSString *msg){
+        NSLog(@"*=*=Connected block=*=* :%@", msg);
+    };
+    [self.tasks addObject:block];
 }
 
 - (void)next {
@@ -86,12 +93,14 @@
         _timeoutTimer = nil;
         self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:20.f target:self selector:@selector(timeout) userInfo:nil repeats:NO];
         
+        NSLog(@"*=*= All tasks =*=* :\n%@", self.commands);
+
         [self next];
     };
 }
 - (void)timeout {
     if (_taskPointer < self.commands.count - 1) {
-        self.resultBlock(self, false, _taskPointer);
+        [self taskFailed];
         [self.udpSocket close];
     }
 }
@@ -129,24 +138,24 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (_taskPointer == 0) {
                 // 失败
-                self.resultBlock(self, false, _taskPointer);
+                [self taskFailed];
                 [sock close];
             }
         });
     } else {
         NSLog(@"Error at begin receiving: %@", error);
-        self.resultBlock(self, false, _taskPointer);
+        [self taskFailed];
         [sock close];
     }
 }
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag {
-    NSLog(@"+=+= Did send data with tag: +=+=\n%ld", tag);
+    NSLog(@"+=+= Did send data: +=+=\ntag:%ld Cmd:%@", tag, self.commands[tag]);
     _taskPointer++;
 }
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error {
     NSLog(@"+=+= Did not send data with tag: +=+=\n%ld dueToError:%@", tag, error);
-    self.resultBlock(self, false, _taskPointer);
+    [self taskFailed];
 }
 
 - (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContext {
@@ -198,6 +207,10 @@
 
 - (BOOL)isConnected {
     return self.udpSocket.isConnected;
+}
+
+- (void)taskFailed {
+    self.resultBlock(self, false, _taskPointer);
 }
 
 @end

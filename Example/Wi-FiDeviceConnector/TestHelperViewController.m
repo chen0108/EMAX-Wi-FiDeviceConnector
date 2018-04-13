@@ -10,6 +10,7 @@
 #import "ConnectorHelper.h"
 #import "UIImage+tint.h"
 #import "W001ConnectorManager.h"
+#import "W002ConnectorManager.h"
 
 @interface TestHelperViewController ()
 
@@ -21,7 +22,7 @@
 
 @property (nonatomic, strong) UILabel *statusLb;
 
-@property (nonatomic, strong) W001ConnectorManager *mgr1;
+@property (nonatomic, strong) W002ConnectorManager *mgr1;
 
 @end
 
@@ -36,9 +37,12 @@
     return _mgr;
 }
 
-- (W001ConnectorManager *)mgr1 {
+- (W002ConnectorManager *)mgr1 {
     if (_mgr1 == nil) {
-        _mgr1 = [[W001ConnectorManager alloc] initWithHost:@"11.11.11.254" port:8800];
+//        _mgr1 = [[W002ConnectorManager alloc] initWithHost:@"11.11.11.254" port:8800];
+        _mgr1 = [[W002ConnectorManager alloc] initWithHost:@"10.10.100.254" port:48899];
+//        _mgr1 = [[W002ConnectorManager alloc] initWithHost:@"255.255.255.255" port:48899];
+
     }
     
     return _mgr1;
@@ -84,19 +88,27 @@
     //        self.mgr.setAPWorkMode().begin();
     //    });
     */
+
+
     
     self.mgr1.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
         NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
     };
-    self.mgr1.scanWiFiResult = ^(W001ConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
+    self.mgr1.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
         NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
+        if ([ssid isEqualToString:@"ezdeiMac"]) {
+            ((W002ConnectorManager *)mgr).setSSID(ssid).begin();
+        }
     };
-    self.mgr1.connectionTestResult = ^(W001ConnectorManager *helper, NSString *mac) {
+
+    self.mgr1.connectionTestResult = ^(BaseConnectorManager *mgr, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
     };
-    [self.mgr1 connectToDevice:^(W001ConnectorManager *mgr) {
-        mgr.connectionTest().scanWiFi().begin();
+
+    [self.mgr1 connectToDevice:^(W002ConnectorManager *mgr) {
+        mgr.connectionTest().scanWiFi().begin();//setNETP(@"47.52.149.125", @"10000");//.scanWiFi().begin();
     }];
+
 
 }
 

@@ -114,7 +114,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     }];
     
     __weak typeof(self) weakSelf = self;
-    self.mgr.connectionTestResult = ^(W001ConnectorManager *mgr, NSString *mac) {
+    self.mgr.connectionTestResult = ^(BaseConnectorManager *mgr, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
         weakSelf.deviceMAC = mac;
     };
