@@ -7,7 +7,6 @@
 //
 
 #import "TestHelperViewController.h"
-#import "ConnectorHelper.h"
 #import "UIImage+tint.h"
 #import "W001ConnectorManager.h"
 #import "W002ConnectorManager.h"
@@ -15,8 +14,6 @@
 @interface TestHelperViewController ()
 
 @property (nonatomic, strong) UIButton *nextStepBtn;
-
-@property (nonatomic, strong) ConnectorHelper *mgr;
 
 @property (nonatomic, strong) UIView *loadingView;
 
@@ -27,15 +24,6 @@
 @end
 
 @implementation TestHelperViewController
-
-- (ConnectorHelper *)mgr {
-    if (_mgr == nil) {
-//        _mgr = [[ConnectorHelper alloc] initWithHost:@"11.11.11.254" port:8800 module:WiFiModule_W001];
-        _mgr = [[ConnectorHelper alloc] initWithHost:@"10.10.100.255" port:48899 module:WiFiModule_W002];
-    }
-    
-    return _mgr;
-}
 
 - (W002ConnectorManager *)mgr1 {
     if (_mgr1 == nil) {

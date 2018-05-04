@@ -7,8 +7,8 @@
 //
 
 #import "WInStepOneViewController.h"
-#import "ConnectorHelper.h"
 #import "WInStepTwoViewController.h"
+#import "BaseConnectorManager.h"
 
 @interface WInStepOneViewController ()
 
@@ -37,7 +37,7 @@
     UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
-    nextStepBtn.enabled = [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID];
+    nextStepBtn.enabled = [[BaseConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
     [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
@@ -64,7 +64,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     }
 }
 - (void)onNetworkChange {
-    if (_shouldAutoPushing == YES && [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID]) {
+    if (_shouldAutoPushing == YES && [[BaseConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID]) {
         _shouldAutoPushing = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.53f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self nextStepAction];

@@ -8,7 +8,7 @@
 
 #import "StepOneViewController.h"
 #import "StepTwoViewController.h"
-
+#import "BaseConnectorManager.h"
 
 @interface StepOneViewController () <UITextFieldDelegate>
 
@@ -128,7 +128,7 @@
     [self.view addSubview:notiLb];
 
     /* * * */
-    [self setSSIDValueBtnTitle:[ConnectorManager currentSSID]];
+    [self setSSIDValueBtnTitle:[BaseConnectorManager currentSSID]];
     
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL,onNetworkChange, CFSTR("com.apple.system.config.network_change"), NULL,CFNotificationSuspensionBehaviorDeliverImmediately);
 }
@@ -140,7 +140,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     }
 }
 - (void)onNetworkChange {
-    [self setSSIDValueBtnTitle:[ConnectorManager currentSSID]];
+    [self setSSIDValueBtnTitle:[BaseConnectorManager currentSSID]];
 }
 - (void)dealloc {
     CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, CFSTR("com.apple.system.config.network_change"), NULL);

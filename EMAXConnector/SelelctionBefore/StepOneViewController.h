@@ -6,7 +6,6 @@
 //  Copyright © 2018年 emax. All rights reserved.
 //
 
-#import "ConnectorManager.h"
 #import "ConnectorCustomizer.h"
 #import "UIImage+tint.h"
 
