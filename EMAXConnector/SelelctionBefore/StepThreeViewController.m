@@ -7,9 +7,8 @@
 //
 
 #import "StepThreeViewController.h"
-//#import "ConnectorManager.h"
-//#import "ConnectorHelper.h"
 #import "W001ConnectorManager.h"
+#import "W002ConnectorManager.h"
 
 @interface StepThreeViewController ()
 
@@ -17,7 +16,7 @@
 
 @property (nonatomic, strong) UIView *loadingView;
 
-@property (nonatomic, strong) W001ConnectorManager *mgr;
+@property (nonatomic, strong) BaseConnectorManager *mgr;
 
 @property (nonatomic, strong) UILabel *statusLb;
 
@@ -27,9 +26,13 @@
 
 @implementation StepThreeViewController
 
-- (W001ConnectorManager *)mgr {
+- (BaseConnectorManager *)mgr {
     if (_mgr == nil) {
-        _mgr = [[W001ConnectorManager alloc] initWithHost:self.customizer.host port:self.customizer.port];
+        if (self.customizer.module == DeviceModule_W001) {
+            _mgr = [[W001ConnectorManager alloc] initWithHost:self.customizer.host port:self.customizer.port];
+        } else if (self.customizer.module == DeviceModule_W002) {
+            _mgr = [[W002ConnectorManager alloc] initWithHost:self.customizer.host port:self.customizer.port];
+        }
     }
     
     return _mgr;
@@ -109,10 +112,17 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     [self showLoadingView];
     // 0:连接  1:测试  2:扫描  3:设置密码  4:设置ssid
 //    self.mgr.connectToDeviceAndBegin().connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw);
-    [self.mgr connectToDevice:^(W001ConnectorManager *mgr) {
-        mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
-    }];
     
+    if (self.customizer.module == DeviceModule_W001) {
+        [(W001ConnectorManager *)self.mgr connectToDevice:^(W001ConnectorManager *mgr) {
+            mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
+        }];
+    } else if (self.customizer.module == DeviceModule_W002) {
+        [(W002ConnectorManager *)self.mgr connectToDevice:^(W002ConnectorManager *mgr) {
+            mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
+        }];
+    }
+
     __weak typeof(self) weakSelf = self;
     self.mgr.connectionTestResult = ^(BaseConnectorManager *mgr, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);

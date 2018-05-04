@@ -29,6 +29,9 @@
 /**
  设置密码 */
 - (W002ConnectorManager *(^)(NSString *psw, NSString *auth, NSString *encry))setPsw;
+/**
+ 扫描Wi-Fi得到一致SSID => 设置密码 => 设置SSID （_taskPointer += 3） */
+- (W002ConnectorManager *(^)(NSString *ssid, NSString *psw))scanForSSIDAndSetPsw;
 /** W002
  设置设备工作模式为 STA */
 - (W002ConnectorManager *(^)(void))setSTAWorkMode;

@@ -218,6 +218,23 @@ typedef enum : NSUInteger {
     };
 }
 
+- (W002ConnectorManager *(^)(NSString *, NSString *))scanForSSIDAndSetPsw {
+    W002ConnectorManager *(^block)(NSString *, NSString *) = ^(NSString *ssid, NSString *psw) {
+        self.scanWiFi().setSSID(ssid);
+        self.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssidT, NSString *auth, NSString *encry) {
+            NSLog(@"*=*=*=*=* \n ssid: %@ \n auth: %@ \n encry: %@", ssid, auth, encry);
+            if ([ssidT hasPrefix:ssid]) {
+                
+                ((W002ConnectorManager *)mgr).setPsw(psw, auth, encry).begin();
+            }
+        };
+        
+        return self;
+    };
+    
+    return block;
+}
+
 - (W002ConnectorManager *(^)(void))setSTAWorkMode {
     return ^W002ConnectorManager *(void) {
         [self.commands addObject:W002Commonds[W002CommondIdx_STAMode]];
@@ -259,7 +276,7 @@ typedef enum : NSUInteger {
         [self.commands addObject:W002Commonds[W002CommondIdx_Mac]];
         
         HandleDataBlock block = ^(NSString *msg){
-            NSLog(@"*=*=%s=*=* :%@", __func__, msg);
+            NSLog(@"*=*=%s=*=* :%@", __func__, msg); // wyntemp
         };
         
         [self.tasks addObject:block];
