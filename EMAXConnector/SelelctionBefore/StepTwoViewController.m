@@ -21,7 +21,7 @@
     self.title = EMAXConnectorLocalizedString(@"Active your device");
 
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_2"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
 
@@ -30,7 +30,7 @@
     [self.view addSubview:guideImgView];
 
     
-    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
+    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kEMAXScreenHeight - 40 - (40 * kEMAXScreenScale), kEMAXScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.backgroundColor =       self.customizer.tintColor;
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
@@ -39,7 +39,7 @@
     [nextStepBtn addTarget:self action:@selector(nextStepAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:nextStepBtn];
 
-    guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kScreenWidth, nextStepBtn.frame.origin.y - CGRectGetMaxY(stepImgView.frame));
+    guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kEMAXScreenWidth, nextStepBtn.frame.origin.y - CGRectGetMaxY(stepImgView.frame));
 
 }
 

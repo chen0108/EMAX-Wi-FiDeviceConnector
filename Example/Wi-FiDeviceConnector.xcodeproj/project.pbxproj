@@ -12,7 +12,6 @@
 		200203E22015B46000AEE3E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 200203E12015B46000AEE3E7 /* Assets.xcassets */; };
 		200203E52015B46000AEE3E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 200203E32015B46000AEE3E7 /* LaunchScreen.storyboard */; };
 		200203E82015B46000AEE3E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 200203E72015B46000AEE3E7 /* main.m */; };
-		2029BADD201F0E680070D81E /* Connector.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2029BADC201F0E680070D81E /* Connector.bundle */; };
 		202DC0A7205F5DE4008E2304 /* TestHelperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */; };
 		20428357201ED1E90013DED0 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 20428348201ED1E90013DED0 /* GCDAsyncUdpSocket.m */; };
 		20428358201ED1E90013DED0 /* UIImage+tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2042834A201ED1E90013DED0 /* UIImage+tint.m */; };
@@ -27,6 +26,7 @@
 		20757235206C98580009BBAA /* BaseConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757234206C98580009BBAA /* BaseConnectorManager.m */; };
 		20757238206CD99B0009BBAA /* W001ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757237206CD99B0009BBAA /* W001ConnectorManager.m */; };
 		207572CF20721E770009BBAA /* W002ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 207572CE20721E770009BBAA /* W002ConnectorManager.m */; };
+		207B1F4820A29E58004E31AE /* Connector.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 207B1F4720A29E58004E31AE /* Connector.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,8 +39,6 @@
 		200203E62015B46000AEE3E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		200203E72015B46000AEE3E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		200204052015C87200AEE3E7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		200204142019C5C700AEE3E7 /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
-		2029BADC201F0E680070D81E /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
 		202DC0A5205F5DE4008E2304 /* TestHelperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHelperViewController.h; sourceTree = "<group>"; };
 		202DC0A6205F5DE4008E2304 /* TestHelperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHelperViewController.m; sourceTree = "<group>"; };
 		20428347201ED1E90013DED0 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
@@ -69,6 +67,7 @@
 		20757237206CD99B0009BBAA /* W001ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W001ConnectorManager.m; sourceTree = "<group>"; };
 		207572CD20721E770009BBAA /* W002ConnectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = W002ConnectorManager.h; sourceTree = "<group>"; };
 		207572CE20721E770009BBAA /* W002ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W002ConnectorManager.m; sourceTree = "<group>"; };
+		207B1F4720A29E58004E31AE /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +103,6 @@
 				20428342201ED1E90013DED0 /* EMAXConnector */,
 				20020410201862AB00AEE3E7 /* Other */,
 				200203E12015B46000AEE3E7 /* Assets.xcassets */,
-				200204142019C5C700AEE3E7 /* Connector.bundle */,
 			);
 			path = "Wi-FiDeviceConnector";
 			sourceTree = "<group>";
@@ -129,7 +127,7 @@
 		20428342201ED1E90013DED0 /* EMAXConnector */ = {
 			isa = PBXGroup;
 			children = (
-				2029BADC201F0E680070D81E /* Connector.bundle */,
+				207B1F4720A29E58004E31AE /* Connector.bundle */,
 				20428344201ED1E90013DED0 /* ConnectorManager */,
 				20428349201ED1E90013DED0 /* UIImage+tint.h */,
 				2042834A201ED1E90013DED0 /* UIImage+tint.m */,
@@ -251,10 +249,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2029BADD201F0E680070D81E /* Connector.bundle in Resources */,
 				200203E52015B46000AEE3E7 /* LaunchScreen.storyboard in Resources */,
 				200203E22015B46000AEE3E7 /* Assets.xcassets in Resources */,
 				200203E02015B46000AEE3E7 /* Main.storyboard in Resources */,
+				207B1F4820A29E58004E31AE /* Connector.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

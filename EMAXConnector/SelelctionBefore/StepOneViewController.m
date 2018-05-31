@@ -49,11 +49,11 @@
     self.title = EMAXConnectorLocalizedString(@"Choose your router");
     
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_1"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
     
-    UILabel *ssidKeyLb =            [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kScreenHeight * 0.25f + kNavStatusBarHeigth, 0, 0)];
+    UILabel *ssidKeyLb =            [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kEMAXScreenHeight * 0.25f + kNavStatusBarHeigth, 0, 0)];
     ssidKeyLb.font =                [UIFont systemFontOfSize:16];
     ssidKeyLb.textColor =           [self.customizer.textColor colorWithAlphaComponent:0.5];
     ssidKeyLb.text =                @"Wi-Fi SSID";
@@ -61,7 +61,7 @@
     [self.view addSubview:ssidKeyLb];
     
     UIButton *ssidValueBtn =        [UIButton buttonWithType:UIButtonTypeSystem];
-    ssidValueBtn.frame =            CGRectMake(CGRectGetMaxX(ssidKeyLb.frame) + 20, ssidKeyLb.frame.origin.y, kScreenWidth * 0.5, 20);
+    ssidValueBtn.frame =            CGRectMake(CGRectGetMaxX(ssidKeyLb.frame) + 20, ssidKeyLb.frame.origin.y, kEMAXScreenWidth * 0.5, 20);
     ssidValueBtn.titleLabel.font =  [UIFont systemFontOfSize:16];
     [ssidValueBtn setTitleColor:self.customizer.textColor forState:UIControlStateNormal];
     [ssidValueBtn addTarget:self action:@selector(showSSIDsAction) forControlEvents:UIControlEventTouchUpInside];
@@ -73,7 +73,7 @@
     arrow.frame = CGRectMake(CGRectGetMaxX(ssidValueBtn.frame), ssidValueBtn.frame.origin.y, 8, 20);
     [self.view addSubview:arrow];
     
-    UITextField *wlanPswTF =        [[UITextField alloc] initWithFrame:CGRectMake(kPadding, CGRectGetMaxY(ssidKeyLb.frame) + 40, kScreenWidth - (kPadding * 2), 35)];
+    UITextField *wlanPswTF =        [[UITextField alloc] initWithFrame:CGRectMake(kPadding, CGRectGetMaxY(ssidKeyLb.frame) + 40, kEMAXScreenWidth - (kPadding * 2), 35)];
     wlanPswTF.returnKeyType =       UIReturnKeyNext;
     wlanPswTF.secureTextEntry =     true;
     wlanPswTF.font =                [UIFont systemFontOfSize:15 weight:UIFontWeightLight];
@@ -102,7 +102,7 @@
     [radioBtn setFrame:rect];
     
     /* * * */
-    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
+    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kEMAXScreenHeight - 40 - (40 * kEMAXScreenScale), kEMAXScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
@@ -120,11 +120,11 @@
     notiLb.textColor =       self.customizer.textColor;
     notiLb.numberOfLines =   0;
     notiLb.lineBreakMode =   NSLineBreakByCharWrapping;
-    CGSize labelSize =       [notiLb.text boundingRectWithSize:CGSizeMake(kScreenWidth - 20, 0)
+    CGSize labelSize =       [notiLb.text boundingRectWithSize:CGSizeMake(kEMAXScreenWidth - 20, 0)
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                             attributes:@{NSFontAttributeName: notiLb.font}
                                                context:nil].size;
-    notiLb.frame =           CGRectMake(10, nextStepBtn.frame.origin.y - labelSize.height - (25 * kScreenScale), kScreenWidth - 20, labelSize.height);
+    notiLb.frame =           CGRectMake(10, nextStepBtn.frame.origin.y - labelSize.height - (25 * kEMAXScreenScale), kEMAXScreenWidth - 20, labelSize.height);
     [self.view addSubview:notiLb];
 
     /* * * */

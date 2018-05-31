@@ -36,7 +36,7 @@
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        CGRect rect = CGRectMake(0, kNavStatusBarHeigth + 25 + 22 + 10, kScreenWidth, kScreenHeight * 0.5);
+        CGRect rect = CGRectMake(0, kNavStatusBarHeigth + 25 + 22 + 10, kEMAXScreenWidth, kEMAXScreenHeight * 0.5);
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -79,7 +79,7 @@
     self.title = EMAXConnectorLocalizedString(@"Choose your router");
     
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_2"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
 

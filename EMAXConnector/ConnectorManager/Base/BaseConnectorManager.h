@@ -22,7 +22,7 @@ typedef void(^HandleDataBlock)(NSString *msg);
 
 @property (nonatomic, assign, readonly) NSInteger taskPointer;
 @property (nonatomic, strong) NSMutableArray<NSString *> *commands;
-@property (nonatomic, strong) NSMutableArray<HandleDataBlock> *tasks;
+@property (nonatomic, strong) NSMutableArray<HandleDataBlock> *tasks; 
 
 
 /**

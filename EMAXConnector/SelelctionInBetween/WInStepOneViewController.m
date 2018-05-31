@@ -26,7 +26,7 @@
     self.title = EMAXConnectorLocalizedString(@"Connect to your device");
     
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_1"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
     
@@ -34,7 +34,7 @@
     guideImgView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:guideImgView];
     
-    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
+    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kEMAXScreenHeight - 40 - (40 * kEMAXScreenScale), kEMAXScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
     nextStepBtn.enabled = [[BaseConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
@@ -47,7 +47,7 @@
     [self.view addSubview:nextStepBtn];
     _nextStepBtn = nextStepBtn;
     
-    guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kScreenWidth, kScreenHeight * 0.5);
+    guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kEMAXScreenWidth, kEMAXScreenHeight * 0.5);
     
     /* * */
     [self showConfirmAlertViewWithMsg:[NSString stringWithFormat:EMAXConnectorLocalizedString(@"Go to Wi-Fi settings, choose %@ and then back to app to continue."), self.customizer.deviceSSID] shouldJump:!self.nextStepBtn.isEnabled confirmBlock:nil];

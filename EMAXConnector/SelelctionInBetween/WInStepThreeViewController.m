@@ -27,11 +27,11 @@
     // Do any additional setup after loading the view.
     
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
     
-    UILabel *ssidKeyLb =            [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kScreenHeight * 0.25f + kNavStatusBarHeigth, 0, 0)];
+    UILabel *ssidKeyLb =            [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kEMAXScreenHeight * 0.25f + kNavStatusBarHeigth, 0, 0)];
     ssidKeyLb.font =                [UIFont systemFontOfSize:16];
     ssidKeyLb.textColor =           [self.customizer.textColor colorWithAlphaComponent:0.5];
     ssidKeyLb.text =                @"Wi-Fi SSID";
@@ -39,14 +39,14 @@
     [self.view addSubview:ssidKeyLb];
     
     UILabel *ssidValueLb =          [UILabel new];
-    ssidValueLb.frame =             CGRectMake(CGRectGetMaxX(ssidKeyLb.frame) + 20, ssidKeyLb.frame.origin.y, kScreenWidth * 0.5, 20);
+    ssidValueLb.frame =             CGRectMake(CGRectGetMaxX(ssidKeyLb.frame) + 20, ssidKeyLb.frame.origin.y, kEMAXScreenWidth * 0.5, 20);
     ssidValueLb.font =              [UIFont systemFontOfSize:16];
     ssidValueLb.textColor =         self.customizer.textColor;
     ssidValueLb.text =              self.ssid;
     ssidValueLb.textAlignment =     NSTextAlignmentCenter;
     [self.view addSubview:ssidValueLb];
     
-    UITextField *wlanPswTF =        [[UITextField alloc] initWithFrame:CGRectMake(kPadding, CGRectGetMaxY(ssidKeyLb.frame) + 40, kScreenWidth - (kPadding * 2), 35)];
+    UITextField *wlanPswTF =        [[UITextField alloc] initWithFrame:CGRectMake(kPadding, CGRectGetMaxY(ssidKeyLb.frame) + 40, kEMAXScreenWidth - (kPadding * 2), 35)];
     wlanPswTF.returnKeyType =       UIReturnKeyNext;
     wlanPswTF.secureTextEntry =     true;
     wlanPswTF.font =                [UIFont systemFontOfSize:15 weight:UIFontWeightLight];
@@ -75,7 +75,7 @@
     [radioBtn setFrame:rect];
     
     /* * * */
-    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
+    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kEMAXScreenHeight - 40 - (40 * kEMAXScreenScale), kEMAXScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
@@ -93,11 +93,11 @@
     notiLb.textColor =       self.customizer.textColor;
     notiLb.numberOfLines =   0;
     notiLb.lineBreakMode =   NSLineBreakByCharWrapping;
-    CGSize labelSize =       [notiLb.text boundingRectWithSize:CGSizeMake(kScreenWidth - 20, 0)
+    CGSize labelSize =       [notiLb.text boundingRectWithSize:CGSizeMake(kEMAXScreenWidth - 20, 0)
                                                        options:NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{NSFontAttributeName: notiLb.font}
                                                        context:nil].size;
-    notiLb.frame =           CGRectMake(10, nextStepBtn.frame.origin.y - labelSize.height - (25 * kScreenScale), kScreenWidth - 20, labelSize.height);
+    notiLb.frame =           CGRectMake(10, nextStepBtn.frame.origin.y - labelSize.height - (25 * kEMAXScreenScale), kEMAXScreenWidth - 20, labelSize.height);
     [self.view addSubview:notiLb];
     
     /* * * */
@@ -207,7 +207,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
 
 - (UILabel *)statusLb {
     if (_statusLb == nil) {
-        _statusLb = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.center.y + 44, kScreenWidth, 20)];
+        _statusLb = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.center.y + 44, kEMAXScreenWidth, 20)];
         _statusLb.textAlignment = NSTextAlignmentCenter;
         _statusLb.textColor = [UIColor whiteColor];
         _statusLb.font = [UIFont systemFontOfSize:12];
@@ -216,7 +216,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
     return _statusLb;
 }
 - (void)showLoadingView {
-    UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kEMAXScreenWidth, kEMAXScreenHeight)];
     maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.65];
     [self.view.window addSubview:maskView];
     

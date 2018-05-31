@@ -15,9 +15,9 @@
 
 #define kNavStatusBarHeigth     (kStatusH+kNavbarH)
 
-#define kScreenWidth            [UIScreen mainScreen].bounds.size.width
-#define kScreenHeight           [UIScreen mainScreen].bounds.size.height
-#define kScreenScale            kScreenWidth / 375 // refer - iPhone6
+#define kEMAXScreenWidth        [UIScreen mainScreen].bounds.size.width
+#define kEMAXScreenHeight       [UIScreen mainScreen].bounds.size.height
+#define kEMAXScreenScale        kEMAXScreenWidth / 375 // refer - iPhone6
 
 #define kConnectorBundle        [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"Connector" ofType:@"bundle"]]
 #define EMAXConnectorLocalizedString(Str)   NSLocalizedStringFromTableInBundle(Str, nil, kConnectorBundle, nil)

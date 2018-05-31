@@ -44,7 +44,7 @@
     self.title = EMAXConnectorLocalizedString(@"Connect to your device");
 
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
 
@@ -52,7 +52,7 @@
     guideImgView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:guideImgView];
     
-    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kScreenHeight - 40 - (40 * kScreenScale), kScreenWidth - (kPadding * 4), 40)];
+    UIButton *nextStepBtn =             [[UIButton alloc] initWithFrame:CGRectMake(kPadding * 2, kEMAXScreenHeight - 40 - (40 * kEMAXScreenScale), kEMAXScreenWidth - (kPadding * 4), 40)];
     nextStepBtn.layer.cornerRadius =    10;
     nextStepBtn.layer.masksToBounds =   YES;
     nextStepBtn.enabled = [[W001ConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
@@ -65,7 +65,7 @@
     [self.view addSubview:nextStepBtn];
     _nextStepBtn = nextStepBtn;
     
-    guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kScreenWidth, kScreenHeight * 0.5);
+    guideImgView.frame = CGRectMake(0, CGRectGetMaxY(stepImgView.frame), kEMAXScreenWidth, kEMAXScreenHeight * 0.5);
     
     /* * */
     [self showConfirmAlertViewWithMsg:[NSString stringWithFormat:EMAXConnectorLocalizedString(@"Go to Wi-Fi settings, choose %@ and then back to app to complete the setting."), self.customizer.deviceSSID] shouldJump:!self.nextStepBtn.isEnabled confirmBlock:nil];
@@ -195,7 +195,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
 
 - (UILabel *)statusLb {
     if (_statusLb == nil) {
-        _statusLb = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.center.y + 44, kScreenWidth, 20)];
+        _statusLb = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.center.y + 44, kEMAXScreenWidth, 20)];
         _statusLb.textAlignment = NSTextAlignmentCenter;
         _statusLb.textColor = [UIColor whiteColor];
         _statusLb.font = [UIFont systemFontOfSize:12];
@@ -204,7 +204,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     return _statusLb;
 }
 - (void)showLoadingView {
-    UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    UIView *maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kEMAXScreenWidth, kEMAXScreenHeight)];
     maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.65];
     [self.view.window addSubview:maskView];
     
