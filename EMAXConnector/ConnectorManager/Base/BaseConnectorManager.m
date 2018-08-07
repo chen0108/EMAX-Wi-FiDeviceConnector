@@ -29,12 +29,12 @@
     
     return _commands;
 }
-- (NSMutableArray *)tasks {
-    if (_tasks == nil) {
-        _tasks = [NSMutableArray array];
+- (NSMutableArray *)taskRetHandlers {
+    if (_taskRetHandlers == nil) {
+        _taskRetHandlers = [NSMutableArray array];
     }
     
-    return _tasks;
+    return _taskRetHandlers;
 }
 
 - (instancetype)initWithHost:(NSString *)host port:(uint16_t)port
@@ -52,7 +52,7 @@
 - (void)initTaskChains {
     _taskPointer = 0;
     [self.commands removeAllObjects];
-    [self.tasks removeAllObjects];
+    [self.taskRetHandlers removeAllObjects];
     
     [_timeoutTimer invalidate];
     _timeoutTimer = nil;
@@ -61,7 +61,7 @@
     HandleDataBlock block = ^(NSString *msg){
         NSLog(@"*=*=Connected block=*=* :%@", msg);
     };
-    [self.tasks addObject:block];
+    [self.taskRetHandlers addObject:block];
 }
 
 - (void)next {
@@ -113,7 +113,7 @@
         HandleDataBlock block = ^(NSString *msg){
             NSLog(@"*=*=Init Task=*=* :%@", msg);
         };
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
 
         return self;
     };
@@ -170,8 +170,8 @@
     
     NSLog(@"+=+= Received massage: +=+=\n%@", msg);
 
-    if (_taskPointer < self.tasks.count) {
-        self.tasks[_taskPointer](msg);
+    if (_taskPointer < self.taskRetHandlers.count) {
+        self.taskRetHandlers[_taskPointer](msg);
     }
 }
 

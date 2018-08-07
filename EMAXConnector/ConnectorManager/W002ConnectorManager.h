@@ -21,7 +21,7 @@
  设置设备连接的服务器地址与端口 (default: 47.52.149.125: 10000) */
 - (W002ConnectorManager *(^)(NSString *host, NSString *port))setNETP;
 /**
- 扫描Wi-Fi */
+ 扫描Wi-Fi （在扫描Wi-Fi结束后【会】返回 +ok） */
 - (W002ConnectorManager *(^)(void))scanWiFi;
 /**
  设置SSID */

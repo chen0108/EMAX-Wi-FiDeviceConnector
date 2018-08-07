@@ -14,7 +14,7 @@ static NSString * const W002Commonds[] = {
     @"AT+NETP=UDP,CLIENT,%@,%@\r\n",        // 3 设置设备服务端端口、地址
     @"AT+WSCAN\r\n",                        // 4 扫描热点
     @"AT+WSSSID=%@\r",                      // 5 设置SSID
-    @"AT+WSKEY=OPEN,NONE,%@\r",             // 6 设置Wi-Fi密码 加密方式 // 模块升级，不需要传加密方式
+    @"AT+WSKEY=OPEN,NONE,%@\r",             // 6 设置Wi-Fi密码 加密方式 (模块升级，不需要传加密方式)
     @"AT+WSKEY=OPEN,NONE\r",                // 6 设置开放的Wi-Fi
     @"AT+WMODE=STA\r",                    // 7 设置设备工作模式
     @"AT+Z\r",                            // 10 重启模块
@@ -93,21 +93,21 @@ typedef enum : NSUInteger {
                 [self next];
                 // 发送 +ok，无返回 延迟后继续下一个任务
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    self.tasks[self.taskPointer](nil);
+                    self.taskRetHandlers[self.taskPointer](nil);
                 });
             } else {
                 [self taskFailed];
             }
         };
 
-        [self.tasks addObject:testBlock];
+        [self.taskRetHandlers addObject:testBlock];
         
         [self.commands addObject:W002Commonds[W002CommondIdx_Confirm]];
         
         HandleDataBlock confirmBlock = ^(NSString *msg) {
             [self next];
         };
-        [self.tasks addObject:confirmBlock];
+        [self.taskRetHandlers addObject:confirmBlock];
 
         return self;
     };
@@ -138,7 +138,7 @@ typedef enum : NSUInteger {
             NSLog(@"*=*=%s=*=* :%@", __func__, msg);
         };
         
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -153,26 +153,31 @@ typedef enum : NSUInteger {
             // 10,ezdeiMac,58:40:4E:E4:B3:50,WPA2PSK/AES,100
             NSArray *components = [msg componentsSeparatedByString:@","];
             if ([components.lastObject isEqualToString:@"Indicator\r\n"] == false) {
+                
                 NSUInteger cmptsCount = components.count;
-                
-                NSString *ssid = components[1];
-                if (cmptsCount > 5) {
-                    // 大于5，表明 SSID 中包含 ','
-                    NSInteger ssidCommaCount = cmptsCount - 5;
-                    for (int i = 2; i < 2 + ssidCommaCount; i++) {
-                        ssid = [ssid stringByAppendingFormat:@",%@", components[i]];
+                if (cmptsCount > 1) {
+                    
+                    NSString *ssid = components[1];
+                    if (cmptsCount > 5) {
+                        // 大于5，表明 SSID 中包含 ','
+                        NSInteger ssidCommaCount = cmptsCount - 5;
+                        for (int i = 2; i < 2 + ssidCommaCount; i++) {
+                            ssid = [ssid stringByAppendingFormat:@",%@", components[i]];
+                        }
                     }
+                    
+                    NSArray *secCompts = [components[cmptsCount - 2] componentsSeparatedByString:@"/"];
+                    NSString *auth = secCompts.firstObject;
+                    NSString *encry = secCompts.lastObject;
+                    
+                    self.scanWiFiResult == nil ? : self.scanWiFiResult(self, ssid, auth, encry);
+                } else if ([msg containsString:@"+ok"]) {
+                    [self next];
                 }
-                
-                NSArray *secCompts = [components[cmptsCount - 2] componentsSeparatedByString:@"/"];
-                NSString *auth = secCompts.firstObject;
-                NSString *encry = secCompts.lastObject;
-                
-                self.scanWiFiResult(self, ssid, auth, encry);
             }
         };
         
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -190,7 +195,7 @@ typedef enum : NSUInteger {
             }
         };
         
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -212,7 +217,7 @@ typedef enum : NSUInteger {
             }
         };
 
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -222,10 +227,10 @@ typedef enum : NSUInteger {
     W002ConnectorManager *(^block)(NSString *, NSString *) = ^(NSString *ssid, NSString *psw) {
         self.scanWiFi().setSSID(ssid);
         self.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssidT, NSString *auth, NSString *encry) {
-            NSLog(@"*=*=*=*=* \n ssid: %@ \n auth: %@ \n encry: %@", ssid, auth, encry);
+            NSLog(@"\n*=*=*=*=* \n ssid: %@ \n auth: %@ \n encry: %@", ssidT, auth, encry);
+            
             if ([ssidT hasPrefix:ssid]) {
-                
-                ((W002ConnectorManager *)mgr).setPsw(psw, auth, encry).begin();
+                ((W002ConnectorManager *)mgr).setPsw(psw, auth, encry).setSTAWorkMode().setRebootDevice();
             }
         };
         
@@ -247,7 +252,7 @@ typedef enum : NSUInteger {
             }
         };
 
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -265,7 +270,7 @@ typedef enum : NSUInteger {
             }
         };
 
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -279,7 +284,7 @@ typedef enum : NSUInteger {
             NSLog(@"*=*=%s=*=* :%@", __func__, msg); // wyntemp
         };
         
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };

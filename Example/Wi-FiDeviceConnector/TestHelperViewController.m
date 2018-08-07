@@ -63,7 +63,7 @@
 //    self.mgr.scanWiFiResult = ^(ConnectorHelper *helper, NSString *ssid, NSString *auth, NSString *encry) {
 //        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
 //        if ([ssid hasPrefix:@"ezdeiMac"]) {
-//            helper.setPsw(@"ezde", auth, encry).setSSID(@"ezdeiMac").begin();
+//            helper.setPsw(@"ezde", auth, encry).setSSID(@"ezdeiMac");
 //        }
 //    };
 
@@ -82,19 +82,20 @@
     self.mgr1.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
         NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
     };
-    self.mgr1.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
-        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
-        if ([ssid isEqualToString:@"ezdeiMac"]) {
-            ((W002ConnectorManager *)mgr).setSSID(ssid).begin();
-        }
-    };
+//    self.mgr1.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
+//        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
+//        if ([ssid isEqualToString:@"ezdeiMac"]) {
+//            ((W002ConnectorManager *)mgr).setSSID(ssid).begin();
+//        }
+//    };
 
     self.mgr1.connectionTestResult = ^(BaseConnectorManager *mgr, NSString *mac) {
         NSLog(@"*=*=%s=*=* Mac: %@", __func__, mac);
     };
 
     [self.mgr1 connectToDevice:^(W002ConnectorManager *mgr) {
-        mgr.connectionTest().scanWiFi().begin();//setNETP(@"47.52.149.125", @"10000");//.scanWiFi().begin();
+        mgr.connectionTest().scanWiFi().begin();// scanForSSIDAndSetPsw(@"ezdeiMac", @"ezdeimac").begin();
+        //setNETP(@"47.52.149.125", @"10000");//.scanWiFi().begin();
     }];
 
 

@@ -18,7 +18,7 @@
  连接测试 */
 - (W001ConnectorManager *(^)(void))connectionTest;
 /**
- 扫描Wi-Fi */
+ 扫描Wi-Fi （扫描Wi-Fi结束后【不会】返回+ok） */
 - (W001ConnectorManager *(^)(void))scanWiFi;
 /**
  设置密码 */

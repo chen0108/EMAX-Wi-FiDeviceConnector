@@ -64,7 +64,7 @@ typedef enum : NSUInteger {
                 [self next];
             };
         };
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -94,7 +94,7 @@ typedef enum : NSUInteger {
             }
         };
         
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -115,7 +115,7 @@ typedef enum : NSUInteger {
                 [self taskFailed];
             }
         };
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -135,7 +135,7 @@ typedef enum : NSUInteger {
                 [self taskFailed];
             }
         };
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
@@ -173,7 +173,7 @@ typedef enum : NSUInteger {
                 }
             }
         };
-        [self.tasks addObject:block];
+        [self.taskRetHandlers addObject:block];
         
         return self;
     };
