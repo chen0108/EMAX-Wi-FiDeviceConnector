@@ -43,7 +43,7 @@
     // Do any additional setup after loading the view.
     self.title = EMAXConnectorLocalizedString(@"Connect to your device");
 
-    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
+    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"wifi_3" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
     [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
@@ -215,7 +215,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     container.center = self.view.center;
     [maskView addSubview:container];
     
-    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
+    UIImage *img = [[UIImage imageNamed:@"circle" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
     UIImageView *circle = [[UIImageView alloc] initWithImage:img];
     [circle sizeToFit];
     circle.center = CGPointMake(28.5, 28.5);

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
+    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"wifi_3" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
     [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
@@ -65,8 +65,8 @@
     radioBtn.titleLabel.font =      [UIFont systemFontOfSize:13];
     [radioBtn setTitle:EMAXConnectorLocalizedString(@"display password") forState:UIControlStateNormal];
     [radioBtn setTitleColor:self.customizer.textColor forState:UIControlStateNormal];
-    [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio0_btn"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha] forState:UIControlStateNormal];
-    [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio1_btn"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha] forState:UIControlStateSelected];
+    [radioBtn setImage:[[UIImage imageNamed:@"wifi_radio0_btn" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha] forState:UIControlStateNormal];
+    [radioBtn setImage:[[UIImage imageNamed:@"wifi_radio1_btn" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha] forState:UIControlStateSelected];
     [radioBtn addTarget:self action:@selector(didClickRadioBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:radioBtn];
     [radioBtn sizeToFit];
@@ -227,7 +227,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
     container.center = self.view.center;
     [maskView addSubview:container];
     
-    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
+    UIImage *img = [[UIImage imageNamed:@"circle" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
     UIImageView *circle = [[UIImageView alloc] initWithImage:img];
     [circle sizeToFit];
     circle.center = CGPointMake(28.5, 28.5);

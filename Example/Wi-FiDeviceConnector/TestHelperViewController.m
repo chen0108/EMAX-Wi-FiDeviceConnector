@@ -121,7 +121,7 @@
     container.center = self.view.center;
     [maskView addSubview:container];
     
-    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
+    UIImage *img = [[UIImage imageNamed:@"circle" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
     UIImageView *circle = [[UIImageView alloc] initWithImage:img];
     [circle sizeToFit];
     circle.center = CGPointMake(28.5, 28.5);
