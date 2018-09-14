@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum __UIImageTintedStyle
+typedef enum __EmaxImageTintedStyle
 {
-    UIImageTintedStyleKeepingAlpha      = 1,
-    UIImageTintedStyleOverAlpha         = 2
-} UIImageTintedStyle;
+    EmaxImageTintedStyleKeepingAlpha      = 1,
+    EmaxImageTintedStyleOverAlpha         = 2
+} EmaxImageTintedStyle;
 
 @interface UIImage (tint)
 
-- (UIImage*)tintedImageWithColor:(UIColor*)color style:(UIImageTintedStyle)tintStyle;
+- (UIImage*)emax_tintedImageWithColor:(UIColor*)color style:(EmaxImageTintedStyle)tintStyle;
 
-+ (UIImage*)imageWithColor:(UIColor*)color;
++ (UIImage*)emax_imageWithColor:(UIColor*)color;
 
 @end

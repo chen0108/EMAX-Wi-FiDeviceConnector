@@ -43,7 +43,7 @@
     // Do any additional setup after loading the view.
     self.title = EMAXConnectorLocalizedString(@"Connect to your device");
 
-    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
+    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_3"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
     [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
@@ -58,9 +58,9 @@
     nextStepBtn.enabled = [[W001ConnectorManager currentSSID] isEqualToString:self.customizer.deviceSSID];
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
-    [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
+    [nextStepBtn setBackgroundImage:[UIImage emax_imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
     [nextStepBtn setTitle:[NSString stringWithFormat:EMAXConnectorLocalizedString(@"Please connect %@"), self.customizer.deviceSSID] forState:UIControlStateDisabled];
-    [nextStepBtn setBackgroundImage:[UIImage imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
+    [nextStepBtn setBackgroundImage:[UIImage emax_imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
     [nextStepBtn addTarget:self action:@selector(nextStepAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:nextStepBtn];
     _nextStepBtn = nextStepBtn;
@@ -215,7 +215,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     container.center = self.view.center;
     [maskView addSubview:container];
     
-    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha];
+    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
     UIImageView *circle = [[UIImageView alloc] initWithImage:img];
     [circle sizeToFit];
     circle.center = CGPointMake(28.5, 28.5);

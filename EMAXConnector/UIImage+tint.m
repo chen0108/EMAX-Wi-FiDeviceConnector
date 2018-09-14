@@ -11,7 +11,7 @@
 
 @implementation UIImage (tint)
 
-- (UIImage*)tintedImageWithColor:(UIColor*)color style:(UIImageTintedStyle)tintStyle
+- (UIImage*)emax_tintedImageWithColor:(UIColor*)color style:(EmaxImageTintedStyle)tintStyle
 {
     if (!color)
         return self;
@@ -29,7 +29,7 @@
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     // ---
     
-    if (tintStyle == UIImageTintedStyleOverAlpha)
+    if (tintStyle == EmaxImageTintedStyleOverAlpha)
     {
         [color setFill];
         CGContextFillRect(context, rect);
@@ -39,7 +39,7 @@
     CGContextSetBlendMode(context, kCGBlendModeNormal);
     CGContextDrawImage(context, rect, self.CGImage);
     
-    if (tintStyle == UIImageTintedStyleKeepingAlpha)
+    if (tintStyle == EmaxImageTintedStyleKeepingAlpha)
     {
         CGContextSetBlendMode(context, kCGBlendModeSourceIn);
         [color setFill];
@@ -58,7 +58,7 @@
     return coloredImage;
 }
 
-+ (UIImage*)imageWithColor:(UIColor*)color {
++ (UIImage*)emax_imageWithColor:(UIColor*)color {
     CGRect rect = CGRectMake(0.0f,0.0f,1.0f,1.0f);
     
     UIGraphicsBeginImageContext(rect.size);

@@ -46,9 +46,9 @@
 //    nextStepBtn.enabled = [[ConnectorHelper currentSSID] isEqualToString:self.customizer.deviceSSID];
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
-    [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
-    [nextStepBtn setTitle:[NSString stringWithFormat:EMAXConnectorLocalizedString(@"Please connect %@"), self.customizer.deviceSSID] forState:UIControlStateDisabled];
-    [nextStepBtn setBackgroundImage:[UIImage imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
+    [nextStepBtn setBackgroundImage:[UIImage emax_imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
+    [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Connecting...") forState:UIControlStateDisabled];
+    [nextStepBtn setBackgroundImage:[UIImage emax_imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
     [nextStepBtn addTarget:self action:@selector(nextStepAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:nextStepBtn];
     _nextStepBtn = nextStepBtn;
@@ -77,10 +77,17 @@
     //    });
     */
 
-
+    [self showLoadingView];
+    [self.nextStepBtn setEnabled:NO];
     
+    __weak typeof(self) weakSelf = self;
     self.mgr1.resultBlock = ^(BaseConnectorManager *mgr, BOOL isSuccess, NSInteger taskPointer) {
         NSLog(@"*=*=%s=*=* :%d %ld", __func__, isSuccess, (long)taskPointer);
+        
+        if (taskPointer >= 7) {
+            [weakSelf dismissLoadingView];
+            [weakSelf.nextStepBtn setEnabled:YES];
+        }
     };
 //    self.mgr1.scanWiFiResult = ^(BaseConnectorManager *mgr, NSString *ssid, NSString *auth, NSString *encry) {
 //        NSLog(@"*=*=%s=*=* \n ssid: %@ \n auth: %@ \n encry: %@", __func__, ssid, auth, encry);
@@ -94,8 +101,9 @@
     };
 
     [self.mgr1 connectToDevice:^(W002ConnectorManager *mgr) {
-        mgr.connectionTest().scanWiFi().begin();// scanForSSIDAndSetPsw(@"ezdeiMac", @"ezdeimac").begin();
+        mgr.connectionTest().scanForSSIDAndSetPsw(@"softwaretest", @"12345678").begin();
         //setNETP(@"47.52.149.125", @"10000");//.scanWiFi().begin();
+        //scanWiFi().begin();
     }];
 
 
@@ -113,7 +121,7 @@
     container.center = self.view.center;
     [maskView addSubview:container];
     
-    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha];
+    UIImage *img = [[UIImage imageNamed:@"Connector.bundle/circle"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha];
     UIImageView *circle = [[UIImageView alloc] initWithImage:img];
     [circle sizeToFit];
     circle.center = CGPointMake(28.5, 28.5);

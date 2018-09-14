@@ -48,7 +48,7 @@
     // Do any additional setup after loading the view.
     self.title = EMAXConnectorLocalizedString(@"Choose your router");
     
-    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_1"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
+    UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/wifi_1"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
     [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
@@ -68,7 +68,7 @@
     [self.view addSubview:ssidValueBtn];
     _ssidValueBtn = ssidValueBtn;
     
-    UIImageView *arrow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/rightArrow"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha]];
+    UIImageView *arrow = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"Connector.bundle/rightArrow"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
     arrow.contentMode = UIViewContentModeCenter;
     arrow.frame = CGRectMake(CGRectGetMaxX(ssidValueBtn.frame), ssidValueBtn.frame.origin.y, 8, 20);
     [self.view addSubview:arrow];
@@ -92,8 +92,8 @@
     radioBtn.titleLabel.font =  [UIFont systemFontOfSize:13];
     [radioBtn setTitle:EMAXConnectorLocalizedString(@"display password") forState:UIControlStateNormal];
     [radioBtn setTitleColor:self.customizer.textColor forState:UIControlStateNormal];
-    [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio0_btn"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha] forState:UIControlStateNormal];
-    [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio1_btn"] tintedImageWithColor:self.customizer.tintColor style:UIImageTintedStyleKeepingAlpha] forState:UIControlStateSelected];
+    [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio0_btn"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha] forState:UIControlStateNormal];
+    [radioBtn setImage:[[UIImage imageNamed:@"Connector.bundle/wifi_radio1_btn"] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha] forState:UIControlStateSelected];
     [radioBtn addTarget:self action:@selector(didClickRadioBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:radioBtn];
     [radioBtn sizeToFit];
@@ -107,8 +107,8 @@
     nextStepBtn.layer.masksToBounds =   YES;
     [nextStepBtn setTitle:EMAXConnectorLocalizedString(@"Next") forState:UIControlStateNormal];
     [nextStepBtn setTitleColor:self.customizer.btnTextColor forState:UIControlStateNormal];
-    [nextStepBtn setBackgroundImage:[UIImage imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
-    [nextStepBtn setBackgroundImage:[UIImage imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
+    [nextStepBtn setBackgroundImage:[UIImage emax_imageWithColor:self.customizer.tintColor] forState:UIControlStateNormal];
+    [nextStepBtn setBackgroundImage:[UIImage emax_imageWithColor:[self.customizer.tintColor colorWithAlphaComponent:0.4]] forState:UIControlStateDisabled];
     [nextStepBtn addTarget:self action:@selector(nextStepAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:nextStepBtn];
     _nextStepBtn = nextStepBtn;
