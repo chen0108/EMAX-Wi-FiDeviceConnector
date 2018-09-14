@@ -13,87 +13,11 @@ pod 'EMAX-Wi-FiDeviceConnector'
 ## Usage
 
 ### ConnectorManager
-eg. 
 
-Mostly in a UIButton action 
+#####How to use
 
-```objective-c
+see `StepThreeViewController.m`
 
-#import "ConnectorManager.h"
-
-@property (nonatomic, strong) ConnectorManager *mgr;
-
-- (ConnectorManager *)mgr {
-    if (_mgr == nil) {
-        _mgr = [[ConnectorManager alloc] initWithHost:self.customizer.host port:self.customizer.port];
-    }
-    
-    return _mgr;
-}
-
-- (void)nextStepAction { // Did click btn
-    [self showLoadingView]; // begin loading
-    [self.mgr beginConnectTaskWithSSID:self.ssid psw:self.psw finishBlock:^(BOOL isSuccess, TagMean tag) {
-        if (isSuccess) { // success
-            NSString *msg = [self messageWithTag:tag isSuccess:YES];
-            if (tag == TagMean_Succeed) {
-                [self dismissLoadingView];
-                [self showConfirmAlertViewWithMsg:msg shouldJump:YES confirmBlock:^{
-                    if (self.customizer.successBlock) {
-                        self.customizer.successBlock(self, self.mgr.deviceMAC);
-                    }
-                }];
-            } else {
-                self.statusLb.text = kLocalizedString(@"Initializing connection");
-            }
-        } else { // failure
-            [self dismissLoadingView];
-            NSString *msg = nil;
-            if (tag == 0) {
-                msg = [self messageWithTag:TagMean_Init isSuccess:NO];
-            } else {
-                // except 'init', 'isSuccess' indicate previous action is succuss
-                msg = [self messageWithTag:(tag - 1) isSuccess:NO];
-            }
-            [self showConfirmAlertViewWithMsg:msg shouldJump:NO confirmBlock:nil];
-        }
-    }];
-}
-
-- (NSString *)messageWithTag:(TagMean)tag isSuccess:(BOOL)isSuccess {
-    NSString *msg = nil;
-    switch (tag) {
-        case TagMean_Init: {
-            msg = kLocalizedString(@"Initializing connection");
-            break;
-        }
-        case TagMean_ShouldScan: {
-            msg = kLocalizedString(@"Scaning Wi-Fi");
-            break;
-        }
-        case TagMean_ShouldSetPIN: {
-            msg = kLocalizedString(@"Setting Wi-Fi PIN");
-            break;
-        }
-        case TagMean_ShouldSetSSID: {
-            msg = kLocalizedString(@"Setting Wi-Fi SSID");
-            break;
-        }
-        case TagMean_Succeed: {
-            msg = kLocalizedString(@"Connection sucessful, please press and hold WiFi button for 3 seconds again to complete the setting.");
-            break;
-        }
-        default:
-            break;
-    }
-    if (isSuccess == NO) {
-        msg = [msg stringByAppendingString:kLocalizedString(@"error!")];
-    }
-    return msg;
-}
-
-
-```
 
 ### UI
 ```objective-c
