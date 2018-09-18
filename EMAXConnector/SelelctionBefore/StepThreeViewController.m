@@ -118,9 +118,18 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
             mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
         }];
     } else if (self.customizer.module == DeviceModule_W002) {
-        [(W002ConnectorManager *)self.mgr connectToDevice:^(W002ConnectorManager *mgr) {
-            mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
-        }];
+        /// 1>需要设置设备服务器
+        if (self.customizer.serverHost && self.customizer.serverPort) {
+            [(W002ConnectorManager *)self.mgr connectToDevice:^(W002ConnectorManager *mgr) {
+                mgr.connectionTest().setNETP(self.customizer.serverHost,self.customizer.serverPort).scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
+            }];
+        }
+        /// 2>无需设置设备服务器
+        else{
+            [(W002ConnectorManager *)self.mgr connectToDevice:^(W002ConnectorManager *mgr) {
+                mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
+            }];
+        }
     }
 
     __weak typeof(self) weakSelf = self;

@@ -66,6 +66,10 @@ typedef enum : NSUInteger {
  default is DeviceModule_W001 */
 @property (nonatomic, assign) DeviceModule module;
 
+/** device server */
+@property (nonatomic, copy  ) NSString *serverHost;
+@property (nonatomic, copy  ) NSString *serverPort;
+
 /**
  All done block */
 @property (nonatomic, copy) void(^successBlock)(UIViewController *vc, NSString *deviceMAC);
