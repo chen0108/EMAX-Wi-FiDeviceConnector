@@ -81,6 +81,8 @@
     wlanPswTF.textColor =           [self.customizer.textColor colorWithAlphaComponent:0.7];
     wlanPswTF.tintColor =           self.customizer.tintColor;
     wlanPswTF.delegate =            self;
+    wlanPswTF.layer.borderColor = self.customizer.tintColor.CGColor;
+    wlanPswTF.layer.borderWidth = 0.5;
     [self.view addSubview:wlanPswTF];
     CALayer *bottomBorder = [CALayer layer];
     bottomBorder.frame = CGRectMake(0.0f, wlanPswTF.frame.size.height - 0.5, wlanPswTF.frame.size.width, 0.5);

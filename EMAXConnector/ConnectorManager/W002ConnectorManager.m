@@ -129,12 +129,17 @@ typedef enum : NSUInteger {
 //    };
 //}
 
-// (default: 47.52.149.125: 10000)
+
 - (W002ConnectorManager *(^)(NSString *, NSString *))setNETP {
     return ^W002ConnectorManager *(NSString *host, NSString *port) {
         [self.commands addObject:[NSString stringWithFormat:W002Commonds[W002CommondIdx_Net], port, host]];
         
         HandleDataBlock block = ^(NSString *msg) {
+            if ([msg containsString:@"+ok"]) {
+                [self next];
+            } else if ([msg containsString:@"+ERR"]) {
+                [self taskFailed];
+            }
             NSLog(@"*=*=%s=*=* :%@", __func__, msg);
         };
         
