@@ -68,6 +68,7 @@
 		207572CD20721E770009BBAA /* W002ConnectorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = W002ConnectorManager.h; sourceTree = "<group>"; };
 		207572CE20721E770009BBAA /* W002ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W002ConnectorManager.m; sourceTree = "<group>"; };
 		207B1F4720A29E58004E31AE /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
+		746C24BF2153326B00362CD4 /* Wi-FiDeviceConnector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wi-FiDeviceConnector.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 			children = (
 				200203D72015B46000AEE3E7 /* Wi-FiDeviceConnector */,
 				200203D62015B46000AEE3E7 /* Products */,
+				746C24BC2153326B00362CD4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +102,7 @@
 		200203D72015B46000AEE3E7 /* Wi-FiDeviceConnector */ = {
 			isa = PBXGroup;
 			children = (
+				746C24BF2153326B00362CD4 /* Wi-FiDeviceConnector.entitlements */,
 				20428342201ED1E90013DED0 /* EMAXConnector */,
 				20020410201862AB00AEE3E7 /* Other */,
 				200203E12015B46000AEE3E7 /* Assets.xcassets */,
@@ -189,6 +192,13 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		746C24BC2153326B00362CD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -222,6 +232,14 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 1;
+							};
+							com.apple.WAC = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -416,6 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Wi-FiDeviceConnector/Wi-FiDeviceConnector.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72QL875RQC;
 				GCC_PREFIX_HEADER = "";
@@ -435,6 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Wi-FiDeviceConnector/Wi-FiDeviceConnector.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72QL875RQC;
 				GCC_PREFIX_HEADER = "";
