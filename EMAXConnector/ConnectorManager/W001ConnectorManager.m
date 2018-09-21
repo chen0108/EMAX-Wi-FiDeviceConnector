@@ -41,9 +41,11 @@ typedef enum : NSUInteger {
     [self initTaskChains];
     
     if (self.isConnected) {
+        NSLog(@"***** socket上次已连接成功 *****");
         self.didBeginReceiving();
     } else {
         NSError *error = nil;
+        NSLog(@"启动socket连接 %@:%@",self.host,@(self.port));
         if ([self.udpSocket connectToHost:self.host onPort:self.port error:&error] == false) {
             NSLog(@"Error connecting: %@", error);
             [self taskFailed];

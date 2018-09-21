@@ -50,6 +50,8 @@
 }
 
 - (void)initTaskChains {
+    
+    NSLog(@"***** 初始化任务链 *****");
     _taskPointer = 0;
     [self.commands removeAllObjects];
     [self.taskRetHandlers removeAllObjects];

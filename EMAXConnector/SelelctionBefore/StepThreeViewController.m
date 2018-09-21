@@ -115,18 +115,21 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
     
     if (self.customizer.module == DeviceModule_W001) {
         [(W001ConnectorManager *)self.mgr connectToDevice:^(W001ConnectorManager *mgr) {
+            NSLog(@"***** socket连接成功的回调,开始执行指令");
             mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
         }];
     } else if (self.customizer.module == DeviceModule_W002) {
         /// 1>需要设置设备服务器
         if (self.customizer.serverHost && self.customizer.serverPort) {
             [(W002ConnectorManager *)self.mgr connectToDevice:^(W002ConnectorManager *mgr) {
+                NSLog(@"***** socket连接成功的回调,开始执行指令");
                 mgr.connectionTest().setNETP(self.customizer.serverHost,self.customizer.serverPort).scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
             }];
         }
         /// 2>无需设置设备服务器
         else{
             [(W002ConnectorManager *)self.mgr connectToDevice:^(W002ConnectorManager *mgr) {
+                NSLog(@"***** socket连接成功的回调,开始执行指令");
                 mgr.connectionTest().scanForSSIDAndSetPsw(self.ssid, self.psw).begin();
             }];
         }
