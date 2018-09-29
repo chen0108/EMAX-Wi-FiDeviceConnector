@@ -20,7 +20,8 @@
 #define kEMAXScreenScale        kEMAXScreenWidth / 375 // refer - iPhone6
 
 #define kConnectorBundle        [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"Connector" ofType:@"bundle"]]
-#define EMAXConnectorLocalizedString(Str)   NSLocalizedStringFromTableInBundle(Str, nil, kConnectorBundle, nil)
+//#define EMAXConnectorLocalizedString(Str)   NSLocalizedStringFromTableInBundle(Str, nil, kConnectorBundle, nil)
+#define EMAXConnectorLocalizedString(Str)   NSLocalizedString(Str, nil) //本地化由主程序提供
 
 #define kPadding 20
 
