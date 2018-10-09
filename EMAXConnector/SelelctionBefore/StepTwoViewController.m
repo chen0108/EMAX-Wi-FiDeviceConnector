@@ -21,7 +21,7 @@
     self.title = EMAXConnectorLocalizedString(@"Active your device");
 
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"wifi_2" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kEMNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
 

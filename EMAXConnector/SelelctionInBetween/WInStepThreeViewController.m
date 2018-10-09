@@ -27,11 +27,11 @@
     // Do any additional setup after loading the view.
     
     UIImageView *stepImgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"wifi_3" inBundle:kConnectorBundle compatibleWithTraitCollection:nil] emax_tintedImageWithColor:self.customizer.tintColor style:EmaxImageTintedStyleKeepingAlpha]];
-    [stepImgView setFrame:CGRectMake(kPadding, kNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
+    [stepImgView setFrame:CGRectMake(kPadding, kEMNavStatusBarHeigth + 25, kEMAXScreenWidth - (kPadding * 2), 22)];
     [stepImgView setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:stepImgView];
     
-    UILabel *ssidKeyLb =            [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kEMAXScreenHeight * 0.25f + kNavStatusBarHeigth, 0, 0)];
+    UILabel *ssidKeyLb =            [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kEMAXScreenHeight * 0.25f + kEMNavStatusBarHeigth, 0, 0)];
     ssidKeyLb.font =                [UIFont systemFontOfSize:16];
     ssidKeyLb.textColor =           [self.customizer.textColor colorWithAlphaComponent:0.5];
     ssidKeyLb.text =                @"Wi-Fi SSID";

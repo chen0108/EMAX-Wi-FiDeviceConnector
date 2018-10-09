@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#define kDevice_Is_iPhoneX      ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
-#define kStatusH                (kDevice_Is_iPhoneX? 44 : 20)
-#define kNavbarH                44
-#define kSBottom                (kDevice_Is_iPhoneX ? 34 : 0)
+#define kEMDevice_Is_iPhoneX      ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kEMStatusH                [UIApplication sharedApplication].statusBarFrame.size.height
+#define kEMNavbarH                44
+#define kEMSBottom                (kEMDevice_Is_iPhoneX ? 34 : 0)
 
-#define kNavStatusBarHeigth     (kStatusH+kNavbarH)
+#define kEMNavStatusBarHeigth     (kEMStatusH+kEMNavbarH)
 
 #define kEMAXScreenWidth        [UIScreen mainScreen].bounds.size.width
 #define kEMAXScreenHeight       [UIScreen mainScreen].bounds.size.height
