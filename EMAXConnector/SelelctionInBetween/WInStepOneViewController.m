@@ -9,6 +9,7 @@
 #import "WInStepOneViewController.h"
 #import "WInStepTwoViewController.h"
 #import "BaseConnectorManager.h"
+#import "GlobalTool.h"
 
 @interface WInStepOneViewController ()
 
@@ -112,14 +113,7 @@ static void onNetworkChange(CFNotificationCenterRef center, void *observer, CFSt
         }
         if (shouldJump) {
             _shouldAutoPushing = YES;
-            NSURL *url = [NSURL URLWithString:@"App-Prefs:root=WIFI"];
-            if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                if (@available(iOS 10, *)) {
-                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                } else {
-                    [[UIApplication sharedApplication] openURL:url];
-                }
-            }
+            [GlobalTool jumpToWifiSettings];
         }
     }]];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

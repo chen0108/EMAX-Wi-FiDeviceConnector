@@ -9,6 +9,7 @@
 #import "StepOneViewController.h"
 #import "StepTwoViewController.h"
 #import "BaseConnectorManager.h"
+#import "GlobalTool.h"
 
 @interface StepOneViewController () <UITextFieldDelegate>
 
@@ -179,15 +180,7 @@ static NSString * const kSSIDsKey = @"SSIDsKey";
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"" message:EMAXConnectorLocalizedString(@"Please select WiFi") preferredStyle:UIAlertControllerStyleActionSheet];
 
     [ac addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@  ❯", self.ssids.firstObject] style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSURL *url = [NSURL URLWithString:@"App-Prefs:root=WIFI"];
-        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-            if (@available(iOS 10, *)) {
-                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-            } else {
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        }
+        [GlobalTool jumpToWifiSettings];
     }]];
     
     for (int i = 1; i < self.ssids.count; i++) { // 从第二个开始

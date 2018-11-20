@@ -27,6 +27,7 @@
 		20757238206CD99B0009BBAA /* W001ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 20757237206CD99B0009BBAA /* W001ConnectorManager.m */; };
 		207572CF20721E770009BBAA /* W002ConnectorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 207572CE20721E770009BBAA /* W002ConnectorManager.m */; };
 		207B1F4820A29E58004E31AE /* Connector.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 207B1F4720A29E58004E31AE /* Connector.bundle */; };
+		747AB6EF21A399140074721B /* GlobalTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 747AB6EE21A399140074721B /* GlobalTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,8 @@
 		207572CE20721E770009BBAA /* W002ConnectorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W002ConnectorManager.m; sourceTree = "<group>"; };
 		207B1F4720A29E58004E31AE /* Connector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Connector.bundle; sourceTree = "<group>"; };
 		746C24BF2153326B00362CD4 /* Wi-FiDeviceConnector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wi-FiDeviceConnector.entitlements"; sourceTree = "<group>"; };
+		747AB6ED21A399140074721B /* GlobalTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalTool.h; sourceTree = "<group>"; };
+		747AB6EE21A399140074721B /* GlobalTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,8 @@
 				20428344201ED1E90013DED0 /* ConnectorManager */,
 				20428349201ED1E90013DED0 /* UIImage+tint.h */,
 				2042834A201ED1E90013DED0 /* UIImage+tint.m */,
+				747AB6ED21A399140074721B /* GlobalTool.h */,
+				747AB6EE21A399140074721B /* GlobalTool.m */,
 				2042834B201ED1E90013DED0 /* SelelctionBefore */,
 				206C1F1C205A6B790046809C /* SelelctionInBetween */,
 			);
@@ -297,6 +302,7 @@
 				207572312068D8740009BBAA /* WInStepThreeViewController.m in Sources */,
 				207572CF20721E770009BBAA /* W002ConnectorManager.m in Sources */,
 				2042835A201ED1E90013DED0 /* StepOneViewController.m in Sources */,
+				747AB6EF21A399140074721B /* GlobalTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
